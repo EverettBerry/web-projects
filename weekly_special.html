@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Weekly Special">
+<meta name="theme-color" content="#f6f1e7">
+<title>The Weekly Special</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f6f1e7;
+  --card: #fffdf8;
+  --ink: #1f1b16;
+  --muted: #6b6257;
+  --rule: #d9cfbf;
+  --accent: #a3241c;
+  --accent-ink: #fff;
+  --good: #2f6b3a;
+  --good-bg: #e4efe0;
+  --chip: #efe7d8;
+  --display: "Playfair Display", Georgia, serif;
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1a1815;
+    --card: #24211c;
+    --ink: #efe8dc;
+    --muted: #a89f92;
+    --rule: #3d3830;
+    --accent: #e5675e;
+    --accent-ink: #1a1815;
+    --good: #8cc79a;
+    --good-bg: #22311f;
+    --chip: #2e2a23;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.5;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 110px; }
+
+/* Masthead */
+.masthead { text-align: center; padding-top: max(14px, env(safe-area-inset-top)); }
+.dateline {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-family: var(--sans); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--ink); padding-bottom: 6px;
+}
+.masthead h1 {
+  font-family: var(--display); font-weight: 900; font-size: clamp(2.3rem, 9vw, 4.4rem);
+  line-height: 1; margin: 14px 0 8px; letter-spacing: -.01em;
+}
+.tagline { font-style: italic; color: var(--muted); margin: 0 auto 10px; max-width: 34em; }
+.rule-double { border: 0; border-top: 4px double var(--ink); margin: 0 0 18px; }
+
+/* Tabs */
+.tabs {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--card); border-top: 1px solid var(--rule);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tabs button {
+  appearance: none; border: 0; background: none; color: var(--muted);
+  font-family: var(--sans); font-size: 12px; font-weight: 600; padding: 10px 4px 12px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; position: relative;
+}
+.tabs button .ico { font-size: 20px; line-height: 1; }
+.tabs button[aria-selected="true"] { color: var(--accent); }
+.tabs .badge {
+  position: absolute; top: 5px; left: 50%; margin-left: 8px;
+  background: var(--accent); color: var(--accent-ink); border-radius: 999px;
+  font-size: 10px; min-width: 18px; height: 18px; line-height: 18px; padding: 0 5px;
+}
+@media (min-width: 760px) {
+  .tabs {
+    position: sticky; top: 0; bottom: auto; border-top: 0; border-bottom: 1px solid var(--rule);
+    background: var(--paper); margin: 0 -16px 20px; padding: 0 16px;
+    grid-template-columns: repeat(4, auto); justify-content: center; gap: 8px;
+  }
+  .tabs button { flex-direction: row; font-size: 14px; padding: 12px 16px; gap: 8px; }
+  .tabs button .ico { font-size: 16px; }
+  .tabs button[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--accent); }
+  .tabs .badge { position: static; margin: 0; }
+  .wrap { padding-bottom: 48px; }
+}
+
+/* Generic */
+section[hidden] { display: none !important; }
+h2 { font-family: var(--display); font-size: 1.7rem; line-height: 1.15; margin: 4px 0 6px; }
+h3 { font-family: var(--display); font-size: 1.2rem; line-height: 1.2; margin: 0 0 6px; }
+.lede { color: var(--muted); margin: 0 0 18px; }
+.card {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 16px; margin-bottom: 16px;
+}
+.kicker {
+  font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
+}
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.sans { font-family: var(--sans); }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.spread { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.grid2 { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+
+label.field { display: block; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--muted); }
+label.field > span { display: block; margin-bottom: 5px; }
+input, select, textarea {
+  font: inherit; font-family: var(--sans); font-size: 16px; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 10px 12px; width: 100%;
+}
+textarea { min-height: 120px; resize: vertical; }
+input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.btn {
+  appearance: none; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 10px 16px; border-radius: 6px;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.plain { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn.sm { font-size: 13px; padding: 6px 10px; }
+.btn.added { background: var(--good); border-color: var(--good); color: var(--card); }
+.btn[disabled] { opacity: .5; cursor: default; }
+
+.stepper { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; width: max-content; background: var(--paper); }
+.stepper button { appearance: none; border: 0; background: none; color: var(--ink); font-size: 20px; width: 44px; height: 42px; cursor: pointer; }
+.stepper output { min-width: 40px; text-align: center; font-family: var(--sans); font-weight: 700; font-size: 17px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  appearance: none; border: 1px solid var(--rule); background: var(--chip); color: var(--ink);
+  font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 999px; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.seg button {
+  appearance: none; border: 0; background: var(--paper); color: var(--muted);
+  font-family: var(--sans); font-size: 12px; padding: 5px 8px; cursor: pointer;
+}
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.sale-tag {
+  display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
+  padding: 0 4px; line-height: 16px; vertical-align: 2px;
+}
+.save { color: var(--good); font-weight: 600; }
+.strike { text-decoration: line-through; color: var(--muted); }
+
+/* Ad list */
+.ad-list { list-style: none; margin: 0; padding: 0; }
+.ad-list li {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center;
+  padding: 10px 0; border-bottom: 1px dotted var(--rule);
+}
+.ad-list li:last-child { border-bottom: 0; }
+.ad-list .name { font-weight: 600; }
+.ad-list .prices { font-family: var(--sans); font-size: 14px; text-align: right; white-space: nowrap; }
+.x {
+  appearance: none; border: 0; background: none; color: var(--muted); font-size: 22px; line-height: 1;
+  width: 36px; height: 36px; cursor: pointer; border-radius: 6px;
+}
+.x:hover { background: var(--chip); }
+.addrow { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.addrow .full { grid-column: 1 / -1; }
+@media (min-width: 640px) { .addrow { grid-template-columns: 2fr 1fr 1fr auto; align-items: end; } .addrow .full { grid-column: auto; } }
+.note { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-top: 8px; }
+.flash { font-family: var(--sans); font-size: 14px; margin-top: 10px; }
+details > summary { cursor: pointer; font-family: var(--sans); font-weight: 600; font-size: 15px; }
+
+/* Recipes */
+.recipes { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.recipe { display: flex; flex-direction: column; margin: 0; }
+.recipe .meta { font-family: var(--sans); font-size: 13px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.recipe .uses { font-size: 15px; margin: 0 0 10px; }
+.recipe .foot { margin-top: auto; display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 8px; border-top: 1px dotted var(--rule); }
+.recipe .body { border-top: 1px dotted var(--rule); margin-top: 10px; padding-top: 10px; font-size: 15px; }
+.recipe .body ul, .recipe .body ol { padding-left: 20px; margin: 6px 0 12px; }
+.recipe .body li { margin-bottom: 4px; }
+.pill { font-family: var(--sans); font-size: 12px; font-weight: 700; background: var(--good-bg); color: var(--good); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.empty { text-align: center; padding: 28px 16px; color: var(--muted); }
+
+/* Shopping list */
+.totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+.totals .num { font-family: var(--display); font-size: 1.7rem; font-weight: 900; line-height: 1.1; }
+.totals .lbl { font-family: var(--sans); font-size: 12px; color: var(--muted); }
+.totals .big .num { color: var(--good); }
+.meter { height: 10px; background: var(--chip); border-radius: 999px; overflow: hidden; margin: 14px 0 6px; }
+.meter > div { height: 100%; background: var(--good); border-radius: 999px; }
+.meter.over > div { background: var(--accent); }
+.plan-list { list-style: none; margin: 0; padding: 0; }
+.plan-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
+.plan-list li:last-child { border-bottom: 0; }
+.cat { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 16px 0 4px; }
+.cat:first-child { margin-top: 0; }
+.shop { list-style: none; margin: 0; padding: 0; }
+.shop li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 9px 0; border-bottom: 1px dotted var(--rule); }
+.shop li:last-child { border-bottom: 0; }
+.shop input[type=checkbox] { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--good); }
+.shop .what { font-weight: 600; }
+.shop .sub { font-family: var(--sans); font-size: 12px; color: var(--muted); margin-top: 3px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.shop .cost { font-family: var(--sans); font-size: 15px; font-weight: 700; text-align: right; white-space: nowrap; }
+.shop li.done .what { text-decoration: line-through; color: var(--muted); }
+.tip { color: var(--good); font-weight: 600; }
+
+#printColumn { display: none; }
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .tabs, .wrap > section, .no-print { display: none !important; }
+  #printColumn { display: block; }
+  .pc-cols { column-count: 2; column-gap: 28px; column-rule: 1px solid #999; }
+  .pc-recipe { break-inside: avoid; margin-bottom: 16px; }
+  .pc-recipe h3 { font-size: 14pt; }
+  .pc-recipe ul, .pc-recipe ol { padding-left: 18px; margin: 4px 0 8px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="dateline"><span id="weekOf"></span><span id="storeLine"></span></div>
+    <h1>The Weekly Special</h1>
+    <p class="tagline">Supper ideas built from what's on sale this week, in the tradition of Grandma's newspaper recipe column.</p>
+    <hr class="rule-double">
+  </header>
+
+  <nav class="tabs no-print" role="tablist">
+    <button role="tab" data-tab="kitchen"><span class="ico">🏡</span>Your Kitchen</button>
+    <button role="tab" data-tab="ad"><span class="ico">🏷️</span>Sale Ad<span class="badge" id="adBadge" hidden></span></button>
+    <button role="tab" data-tab="recipes"><span class="ico">📖</span>Recipes</button>
+    <button role="tab" data-tab="list"><span class="ico">🧾</span>Shopping List<span class="badge" id="planBadge" hidden></span></button>
+  </nav>
+
+  <!-- 1. Kitchen -->
+  <section id="tab-kitchen">
+    <div class="kicker">Step 1</div>
+    <h2>Tell us about your kitchen</h2>
+    <p class="lede">These settings are saved on this device, so you only fill them out once.</p>
+
+    <div class="card grid2">
+      <label class="field"><span>Store</span>
+        <select id="store"></select>
+      </label>
+      <label class="field"><span>ZIP code</span>
+        <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" placeholder="e.g. 30301">
+      </label>
+    </div>
+
+    <div class="card grid2">
+      <div class="field"><span class="field" style="margin-bottom:5px">People to feed</span>
+        <div class="stepper"><button data-step="people" data-d="-1" aria-label="Fewer people">−</button><output id="people"></output><button data-step="people" data-d="1" aria-label="More people">+</button></div>
+      </div>
+      <div class="field"><span class="field" style="margin-bottom:5px">Dinners to plan this week</span>
+        <div class="stepper"><button data-step="dinners" data-d="-1" aria-label="Fewer dinners">−</button><output id="dinners"></output><button data-step="dinners" data-d="1" aria-label="More dinners">+</button></div>
+      </div>
+      <label class="field"><span>Weekly grocery budget for these dinners ($)</span>
+        <input id="budget" type="number" inputmode="decimal" min="0" step="5" placeholder="No limit">
+      </label>
+      <label class="field"><span>Hands-on cooking time per night</span>
+        <select id="maxTime">
+          <option value="20">20 minutes or less</option>
+          <option value="30">30 minutes or less</option>
+          <option value="45">45 minutes or less</option>
+          <option value="60">1 hour or less</option>
+          <option value="999">No limit</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="card">
+      <div class="field" style="margin-bottom:8px"><span class="field">Dietary needs</span></div>
+      <div class="chips" id="diets"></div>
+      <p class="note">Recipes that can't be made to fit are hidden. If only a topping conflicts (say, sour cream on tacos), the recipe stays and tells you to leave it off.</p>
+    </div>
+
+    <div class="card">
+      <div class="field" style="margin-bottom:8px"><span class="field">For items that aren't on sale, buy</span></div>
+      <div class="chips" id="brandPref">
+        <button class="chip" data-pref="store">Store brand (cheaper)</button>
+        <button class="chip" data-pref="name">Name brand</button>
+      </div>
+      <p class="note">You can still switch any single item on the shopping list.</p>
+    </div>
+
+    <button class="btn" data-goto="ad">Next: this week's ad →</button>
+  </section>
+
+  <!-- 2. Ad -->
+  <section id="tab-ad" hidden>
+    <div class="kicker">Step 2</div>
+    <h2>What's on sale this week?</h2>
+    <p class="lede">Pull up the weekly ad and add the items on sale. Recipes will be built around them.</p>
+
+    <div class="card spread">
+      <div>
+        <h3 id="findAdTitle">Find the weekly ad</h3>
+        <div class="small muted" id="findAdNote"></div>
+      </div>
+      <a class="btn ghost" id="findAdLink" target="_blank" rel="noopener">Open weekly ad ↗</a>
+    </div>
+
+    <div class="card">
+      <h3>Add a sale item</h3>
+      <div class="addrow">
+        <label class="field full"><span>Item</span>
+          <input id="addName" list="catalogList" placeholder="Start typing, e.g. chicken thighs" autocomplete="off">
+          <datalist id="catalogList"></datalist>
+        </label>
+        <label class="field"><span id="saleLbl">Sale price</span>
+          <input id="addSale" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1.99">
+        </label>
+        <label class="field"><span id="regLbl">Regular price</span>
+          <input id="addReg" type="number" inputmode="decimal" min="0" step="0.01" placeholder="optional">
+        </label>
+        <button class="btn full" id="addBtn" style="justify-content:center">Add</button>
+      </div>
+      <div class="note" id="addHint">Enter the price per unit shown (per lb, each, per can...). If the ad says "2 for $5", enter 2.50.</div>
+      <div class="flash" id="addFlash"></div>
+    </div>
+
+    <div class="card">
+      <details id="pasteBox">
+        <summary>Paste or type a whole list at once</summary>
+        <p class="small muted">One item per line. Prices can look like <code>1.99/lb</code>, <code>2 for $5</code>, or <code>99¢</code>; add <code>reg 3.49</code> for the regular price.</p>
+        <textarea id="pasteText" placeholder="Chicken thighs $1.49/lb reg $2.99&#10;Bell peppers 2 for $1&#10;Ground beef 3.99 lb&#10;Avocados 69¢"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="pasteBtn">Add these items</button>
+        </div>
+        <div class="flash" id="pasteFlash"></div>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="spread" style="margin-bottom:6px">
+        <h3 style="margin:0">On sale this week</h3>
+        <div class="row">
+          <button class="btn sm plain" id="sampleBtn">Load a sample ad</button>
+          <button class="btn sm plain" id="clearAdBtn">Clear</button>
+        </div>
+      </div>
+      <ul class="ad-list" id="adList"></ul>
+    </div>
+
+    <button class="btn" data-goto="recipes">See recipes →</button>
+  </section>
+
+  <!-- 3. Recipes -->
+  <section id="tab-recipes" hidden>
+    <div class="kicker">Step 3</div>
+    <h2>This week's recipes</h2>
+    <p class="lede" id="recipesLede"></p>
+    <div class="toolbar">
+      <button class="btn" id="autoPlanBtn">✨ Plan my week for me</button>
+      <div class="chips">
+        <button class="chip" id="saleOnlyChip">Only recipes using sale items</button>
+      </div>
+    </div>
+    <div class="recipes" id="recipeGrid"></div>
+  </section>
+
+  <!-- 4. List -->
+  <section id="tab-list" hidden>
+    <div class="kicker">Step 4</div>
+    <h2>One-stop shopping list</h2>
+    <p class="lede" id="listLede"></p>
+    <div id="listBody"></div>
+  </section>
+
+  <div id="printColumn"></div>
+</div>
+
+<script>
+/* ---------- Ingredient catalog ----------
+   Prices are typical US regular prices (store brand / name brand) used as
+   estimates when an item isn't in the weekly ad. */
+const CATS = ['Produce', 'Meat & Seafood', 'Dairy & Eggs', 'Bakery & Tortillas', 'Pantry', 'Frozen'];
+const CATALOG = {};
+function I(key, n, u, s, b, c, f, a) {
+  CATALOG[key] = { key, n, u, s, b, c, f: f ? f.split(' ') : [], a: (a || '').split('|').filter(Boolean) };
+}
+// Produce
+I('onion', 'Yellow onion', 'each', .79, .79, 'Produce', '', 'onion|onions|yellow onion|red onion|sweet onion');
+I('garlic', 'Garlic', 'head', .59, .59, 'Produce', '', 'garlic');
+I('potatoes', 'Russet potatoes', 'lb', .99, .99, 'Produce', '', 'potato|potatoes|russet|yukon gold');
+I('sweet_potato', 'Sweet potatoes', 'lb', 1.29, 1.29, 'Produce', '', 'sweet potato|sweet potatoes|yams');
+I('carrots', 'Carrots', 'lb', .99, .99, 'Produce', '', 'carrot|carrots');
+I('celery', 'Celery', 'bunch', 1.99, 1.99, 'Produce', '', 'celery');
+I('broccoli', 'Broccoli', 'lb', 1.99, 1.99, 'Produce', '', 'broccoli|broccoli crowns');
+I('bell_pepper', 'Bell pepper', 'each', 1.19, 1.19, 'Produce', '', 'bell pepper|bell peppers|peppers|green pepper|red pepper');
+I('zucchini', 'Zucchini', 'lb', 1.49, 1.49, 'Produce', '', 'zucchini|squash');
+I('spinach', 'Spinach (bag)', 'bag', 2.49, 3.49, 'Produce', '', 'spinach|baby spinach');
+I('tomatoes', 'Tomatoes', 'lb', 1.99, 1.99, 'Produce', '', 'tomato|tomatoes|roma tomatoes');
+I('romaine', 'Romaine lettuce', 'head', 1.99, 1.99, 'Produce', '', 'romaine|lettuce');
+I('cabbage', 'Cabbage', 'lb', .79, .79, 'Produce', '', 'cabbage|coleslaw mix');
+I('avocado', 'Avocado', 'each', 1.25, 1.25, 'Produce', '', 'avocado|avocados');
+I('lemon', 'Lemon', 'each', .69, .69, 'Produce', '', 'lemon|lemons');
+I('lime', 'Lime', 'each', .39, .39, 'Produce', '', 'lime|limes');
+I('cilantro', 'Cilantro', 'bunch', .79, .79, 'Produce', '', 'cilantro');
+I('green_onion', 'Green onions', 'bunch', .89, .89, 'Produce', '', 'green onion|green onions|scallion|scallions');
+I('mushrooms', 'Mushrooms (8 oz)', 'pack', 2.29, 2.99, 'Produce', '', 'mushroom|mushrooms');
+I('green_beans', 'Green beans', 'lb', 1.99, 1.99, 'Produce', '', 'green beans');
+I('asparagus', 'Asparagus', 'lb', 2.99, 2.99, 'Produce', '', 'asparagus');
+I('cucumber', 'Cucumber', 'each', .79, .79, 'Produce', '', 'cucumber|cucumbers');
+I('apples', 'Apples', 'lb', 1.49, 1.49, 'Produce', '', 'apple|apples|honeycrisp|gala apples');
+I('corn', 'Sweet corn', 'ear', .50, .50, 'Produce', '', 'corn|sweet corn|corn on the cob');
+I('tofu', 'Firm tofu', 'block', 1.99, 2.79, 'Produce', 'soy', 'tofu');
+// Meat & seafood
+I('chicken_breast', 'Boneless chicken breast', 'lb', 3.29, 4.49, 'Meat & Seafood', 'meat', 'chicken breast|chicken breasts|boneless chicken|boneless skinless chicken');
+I('chicken_thigh', 'Chicken thighs', 'lb', 1.99, 2.99, 'Meat & Seafood', 'meat', 'chicken thigh|chicken thighs|thighs|drumsticks|chicken legs');
+I('ground_beef', 'Ground beef', 'lb', 4.99, 5.99, 'Meat & Seafood', 'meat', 'ground beef|hamburger|ground chuck|ground round');
+I('ground_turkey', 'Ground turkey', 'lb', 3.99, 4.99, 'Meat & Seafood', 'meat', 'ground turkey');
+I('beef_stew', 'Beef stew meat', 'lb', 6.49, 7.49, 'Meat & Seafood', 'meat', 'stew meat|beef stew|chuck roast');
+I('steak', 'Sirloin steak', 'lb', 7.99, 9.99, 'Meat & Seafood', 'meat', 'steak|steaks|sirloin|ribeye|strip steak');
+I('pork_chop', 'Pork chops', 'lb', 3.49, 4.29, 'Meat & Seafood', 'pork', 'pork chop|pork chops|pork loin');
+I('pork_shoulder', 'Pork shoulder', 'lb', 2.49, 2.99, 'Meat & Seafood', 'pork', 'pork shoulder|pork butt|boston butt');
+I('sausage', 'Smoked sausage (14 oz)', 'pack', 3.49, 4.99, 'Meat & Seafood', 'pork', 'sausage|kielbasa|smoked sausage');
+I('bacon', 'Bacon', 'pack', 4.99, 6.99, 'Meat & Seafood', 'pork', 'bacon');
+I('salmon', 'Salmon fillet', 'lb', 8.99, 10.99, 'Meat & Seafood', 'fish', 'salmon');
+I('shrimp', 'Shrimp', 'lb', 6.99, 8.99, 'Meat & Seafood', 'shellfish', 'shrimp');
+// Dairy & eggs
+I('eggs', 'Eggs', 'dozen', 2.99, 3.99, 'Dairy & Eggs', 'egg', 'egg|eggs');
+I('milk', 'Milk', 'half gallon', 2.29, 3.29, 'Dairy & Eggs', 'dairy', 'milk');
+I('butter', 'Butter', 'lb', 3.99, 5.49, 'Dairy & Eggs', 'dairy', 'butter');
+I('cheddar', 'Shredded cheddar (8 oz)', 'pack', 2.29, 3.79, 'Dairy & Eggs', 'dairy', 'cheddar|shredded cheese|cheese');
+I('mozzarella', 'Shredded mozzarella (8 oz)', 'pack', 2.29, 3.79, 'Dairy & Eggs', 'dairy', 'mozzarella');
+I('parmesan', 'Grated parmesan', 'pack', 3.49, 4.99, 'Dairy & Eggs', 'dairy', 'parmesan|parm');
+I('sour_cream', 'Sour cream', 'tub', 1.79, 2.49, 'Dairy & Eggs', 'dairy', 'sour cream');
+I('greek_yogurt', 'Plain Greek yogurt (32 oz)', 'tub', 3.99, 5.49, 'Dairy & Eggs', 'dairy', 'greek yogurt|yogurt');
+// Bakery & tortillas
+I('flour_tortilla', 'Flour tortillas', 'pack', 2.29, 3.49, 'Bakery & Tortillas', 'gluten', 'flour tortillas|tortillas|wraps');
+I('corn_tortilla', 'Corn tortillas', 'pack', 1.99, 2.79, 'Bakery & Tortillas', '', 'corn tortillas');
+I('buns', 'Hamburger buns', 'pack', 1.79, 2.99, 'Bakery & Tortillas', 'gluten', 'buns|hamburger buns|rolls');
+I('bread', 'Sandwich bread', 'loaf', 1.99, 3.49, 'Bakery & Tortillas', 'gluten', 'bread');
+I('pizza_dough', 'Pizza dough', 'ball', 2.49, 3.49, 'Bakery & Tortillas', 'gluten', 'pizza dough|pizza crust');
+// Pantry
+I('pasta', 'Pasta (1 lb)', 'box', 1.00, 1.79, 'Pantry', 'gluten', 'pasta|spaghetti|penne|ziti|noodles');
+I('rice', 'Long-grain rice (2 lb)', 'bag', 2.29, 3.49, 'Pantry', '', 'rice');
+I('marinara', 'Marinara sauce', 'jar', 1.99, 3.49, 'Pantry', '', 'marinara|pasta sauce|spaghetti sauce');
+I('canned_tomatoes', 'Canned tomatoes', 'can', .99, 1.69, 'Pantry', '', 'canned tomatoes|diced tomatoes|crushed tomatoes|tomato sauce');
+I('broth', 'Broth (veggie or chicken)', 'carton', 1.79, 2.79, 'Pantry', '', 'broth|stock');
+I('black_beans', 'Black beans', 'can', .89, 1.29, 'Pantry', '', 'black beans');
+I('kidney_beans', 'Kidney beans', 'can', .89, 1.29, 'Pantry', '', 'kidney beans|chili beans|pinto beans');
+I('chickpeas', 'Chickpeas', 'can', .89, 1.29, 'Pantry', '', 'chickpeas|garbanzo beans');
+I('lentils', 'Dry lentils (1 lb)', 'bag', 1.49, 2.29, 'Pantry', '', 'lentils');
+I('coconut_milk', 'Coconut milk', 'can', 1.49, 2.29, 'Pantry', '', 'coconut milk');
+I('salsa', 'Salsa', 'jar', 2.29, 3.49, 'Pantry', '', 'salsa');
+I('bbq_sauce', 'BBQ sauce', 'bottle', 1.79, 2.99, 'Pantry', '', 'bbq sauce|barbecue sauce');
+I('peanut_butter', 'Peanut butter', 'jar', 2.49, 3.79, 'Pantry', 'nuts', 'peanut butter');
+// Frozen
+I('frozen_peas', 'Frozen peas & carrots', 'bag', 1.29, 2.29, 'Frozen', '', 'frozen peas|peas|frozen vegetables|frozen veggies');
+
+// Pantry staples assumed on hand. Only the ones that matter for diets are listed.
+const PANTRY = {
+  'soy sauce': { f: ['gluten'], swap: 'tamari (gluten-free soy sauce)' },
+  'flour': { f: ['gluten'], swap: 'cornstarch' },
+  'honey': { f: ['honey'], swap: 'maple syrup' },
+  'mayo': { f: ['egg'], swap: 'egg-free mayo' },
+};
+
+const DIETS = {
+  vegetarian: { label: 'Vegetarian', no: ['meat', 'pork', 'fish', 'shellfish'] },
+  vegan: { label: 'Vegan', no: ['meat', 'pork', 'fish', 'shellfish', 'dairy', 'egg', 'honey'] },
+  pescatarian: { label: 'Pescatarian', no: ['meat', 'pork'] },
+  glutenfree: { label: 'Gluten-free', no: ['gluten'] },
+  dairyfree: { label: 'Dairy-free', no: ['dairy'] },
+  nutfree: { label: 'Nut-free', no: ['nuts'] },
+  eggfree: { label: 'Egg-free', no: ['egg'] },
+  nopork: { label: 'No pork', no: ['pork'] },
+  noshellfish: { label: 'No shellfish', no: ['shellfish'] },
+  nosoy: { label: 'Soy-free', no: ['soy'] },
+};
+
+/* ---------- Recipes ----------
+   Quantities are for 4 servings, in the catalog item's unit.
+   opt = ingredients that can be left off if they conflict with a diet. */
+const RECIPES = [];
+function R(id, name, time, active, ings, opt, pantry, steps) {
+  RECIPES.push({ id, name, time, active: active || time, ings, opt, pantry, steps });
+}
+R('sheet_chicken', 'Sheet-Pan Lemon Chicken & Potatoes', 45, 15,
+  { chicken_thigh: 2, potatoes: 1.5, green_beans: 1, lemon: 1, garlic: .25 }, [],
+  ['olive oil', 'salt & pepper', 'dried oregano'],
+  ['Heat oven to 425°F. Cut potatoes into 1-inch chunks.',
+   'Toss potatoes and chicken with oil, minced garlic, oregano, salt and pepper on a sheet pan. Roast 20 minutes.',
+   'Add green beans, squeeze half the lemon over everything, and roast 15 more minutes until the chicken reaches 165°F.',
+   'Serve with the rest of the lemon cut into wedges.']);
+R('chicken_stirfry', 'Chicken & Broccoli Stir-Fry', 25, 0,
+  { chicken_breast: 1.5, broccoli: 1, bell_pepper: 1, rice: .5, garlic: .25, green_onion: 1 }, ['green_onion'],
+  ['soy sauce', 'honey', 'cornstarch', 'vegetable oil'],
+  ['Start the rice.',
+   'Slice chicken thin and toss with 1 Tbsp cornstarch and a pinch of salt.',
+   'Stir-fry the chicken in a hot oiled skillet 5–6 minutes and set aside. Stir-fry broccoli and pepper 4 minutes.',
+   'Return the chicken, add garlic, 3 Tbsp soy sauce and 1 Tbsp honey, and toss 1 minute. Top with green onions and serve over rice.']);
+R('fajitas', 'Chicken Fajitas', 30, 0,
+  { chicken_breast: 1.5, bell_pepper: 3, onion: 1, flour_tortilla: 1, sour_cream: 1, lime: 2 }, ['sour_cream'],
+  ['chili powder', 'cumin', 'vegetable oil', 'salt'],
+  ['Slice chicken, peppers and onion into strips.',
+   'Toss chicken with 2 tsp chili powder, 1 tsp cumin, salt and the juice of 1 lime.',
+   'Sear chicken in a hot oiled skillet 6–7 minutes and remove. Cook peppers and onion 5 minutes until charred at the edges.',
+   'Return the chicken, squeeze over the second lime, and serve in warm tortillas with sour cream.']);
+R('tortilla_soup', 'Chicken Tortilla Soup', 40, 15,
+  { chicken_breast: 1, broth: 2, canned_tomatoes: 1, black_beans: 1, corn: 2, onion: 1, corn_tortilla: .5, avocado: 1, cilantro: 1, lime: 1 }, ['avocado', 'cilantro'],
+  ['cumin', 'chili powder', 'vegetable oil', 'salt'],
+  ['Cook diced onion in oil 5 minutes. Stir in 1 tsp each cumin and chili powder.',
+   'Add broth, tomatoes, rinsed beans and whole chicken breasts. Simmer 20 minutes.',
+   'Shred the chicken with two forks, stir in corn cut from the cob, and simmer 5 minutes. Add lime juice and salt.',
+   'Cut tortillas into strips and bake at 400°F for 8 minutes until crisp. Top bowls with the strips, avocado and cilantro.']);
+R('salmon', 'Lemon Garlic Salmon with Asparagus', 25, 0,
+  { salmon: 1.5, asparagus: 1, lemon: 1, garlic: .25, rice: .5, butter: .125 }, ['butter'],
+  ['olive oil', 'salt & pepper'],
+  ['Start the rice. Heat oven to 400°F.',
+   'Lay salmon and asparagus on a sheet pan. Drizzle with oil, minced garlic, salt and pepper.',
+   'Top the salmon with thin lemon slices and small pats of butter. Roast 12–15 minutes until it flakes.',
+   'Serve over rice with the pan juices spooned on top.']);
+R('shrimp_tacos', 'Shrimp Tacos with Lime Slaw', 25, 0,
+  { shrimp: 1, cabbage: 1, lime: 2, corn_tortilla: 1, avocado: 1, sour_cream: 1, cilantro: 1 }, ['sour_cream', 'cilantro'],
+  ['chili powder', 'garlic powder', 'vegetable oil', 'salt'],
+  ['Shred the cabbage and toss with juice of 1 lime, a pinch of salt and chopped cilantro.',
+   'Season shrimp with chili powder, garlic powder and salt. Cook in a hot oiled skillet 2 minutes per side.',
+   'Stir a squeeze of lime into the sour cream for a quick crema.',
+   'Warm the tortillas and fill with shrimp, slaw, avocado and crema.']);
+R('shrimp_pasta', 'Garlic Butter Shrimp Pasta', 25, 0,
+  { shrimp: 1, pasta: 1, butter: .25, garlic: .5, spinach: 1, lemon: 1, parmesan: .5 }, ['parmesan'],
+  ['red pepper flakes', 'salt & pepper'],
+  ['Boil pasta in salted water. Save 1 cup of the water before draining.',
+   'Melt butter in a large skillet. Add minced garlic and a pinch of pepper flakes for 1 minute.',
+   'Add shrimp and cook 2–3 minutes until pink. Stir in spinach until wilted.',
+   'Toss in the pasta, lemon juice, parmesan and splashes of pasta water until glossy.']);
+R('beef_tacos', 'Weeknight Beef Tacos', 20, 0,
+  { ground_beef: 1, corn_tortilla: 1, cheddar: 1, romaine: 1, tomatoes: .5, sour_cream: 1, salsa: 1 }, ['cheddar', 'sour_cream'],
+  ['chili powder', 'cumin', 'garlic powder', 'salt'],
+  ['Brown the beef in a skillet, breaking it up, about 8 minutes. Drain the fat.',
+   'Add 1 Tbsp chili powder, 1 tsp cumin, ½ tsp garlic powder, salt and ⅓ cup water. Simmer 3 minutes.',
+   'Shred the lettuce and dice the tomatoes.',
+   'Warm the tortillas and build tacos with beef, lettuce, tomato, cheese, sour cream and salsa.']);
+R('spaghetti', 'Spaghetti & Meat Sauce', 35, 15,
+  { ground_beef: 1, pasta: 1, marinara: 1, onion: 1, garlic: .25, parmesan: .5 }, ['parmesan'],
+  ['olive oil', 'Italian seasoning', 'salt & pepper'],
+  ['Brown the beef with diced onion, about 8 minutes. Drain.',
+   'Add garlic and Italian seasoning for 1 minute, then the marinara. Simmer 15 minutes.',
+   'Meanwhile, boil the pasta in salted water.',
+   'Serve the sauce over pasta with parmesan.']);
+R('burgers', 'Cheeseburgers & Oven Fries', 35, 20,
+  { ground_beef: 1.5, buns: 1, cheddar: .5, romaine: .5, tomatoes: .5, potatoes: 2 }, ['cheddar'],
+  ['olive oil', 'salt & pepper', 'ketchup & mustard'],
+  ['Heat oven to 450°F. Cut potatoes into wedges, toss with oil and salt, and roast 30 minutes, flipping once.',
+   'Shape the beef into 4 patties and season well with salt and pepper.',
+   'Cook patties in a hot skillet 4 minutes per side. Top with cheese for the last minute, covered.',
+   'Serve on buns with lettuce, tomato and the fries.']);
+R('beef_stew', 'Old-Fashioned Beef Stew', 150, 25,
+  { beef_stew: 2, potatoes: 1.5, carrots: 1, onion: 1, celery: .5, broth: 1, canned_tomatoes: 1 }, [],
+  ['flour', 'olive oil', 'thyme', 'bay leaf', 'salt & pepper'],
+  ['Toss the beef with 2 Tbsp flour, salt and pepper. Brown in batches in an oiled Dutch oven.',
+   'Add diced onion and celery for 5 minutes, then the broth, tomatoes, thyme and a bay leaf.',
+   'Cover and simmer gently for 1½ hours.',
+   'Add chunks of potato and carrot and simmer 30–40 minutes more until tender.']);
+R('stuffed_peppers', 'Stuffed Peppers', 60, 20,
+  { ground_turkey: 1, bell_pepper: 4, rice: .25, canned_tomatoes: 1, mozzarella: 1, onion: 1 }, ['mozzarella'],
+  ['Italian seasoning', 'olive oil', 'salt & pepper'],
+  ['Heat oven to 375°F. Cook the rice. Halve the peppers and remove the seeds.',
+   'Brown the turkey with diced onion, then stir in the tomatoes, rice and seasoning.',
+   'Fill the pepper halves, cover with foil and bake 30 minutes.',
+   'Uncover, top with mozzarella and bake 10 minutes more.']);
+R('turkey_chili', 'Turkey Chili', 45, 15,
+  { ground_turkey: 1, kidney_beans: 2, canned_tomatoes: 2, onion: 1, bell_pepper: 1, cheddar: .5, sour_cream: 1 }, ['cheddar', 'sour_cream'],
+  ['chili powder', 'cumin', 'olive oil', 'salt'],
+  ['Brown the turkey with diced onion and pepper.',
+   'Add 2 Tbsp chili powder and 1 tsp cumin and cook 1 minute.',
+   'Add the tomatoes and drained beans. Simmer 25 minutes.',
+   'Season with salt and serve with cheese and sour cream.']);
+R('pork_apples', 'Pork Chops with Apples & Sweet Potatoes', 40, 20,
+  { pork_chop: 2, apples: 1, sweet_potato: 2, onion: 1, butter: .125 }, ['butter'],
+  ['olive oil', 'cinnamon', 'salt & pepper'],
+  ['Heat oven to 425°F. Cube the sweet potatoes, toss with oil and salt, and roast 25–30 minutes.',
+   'Season the chops and sear in an oiled skillet 4–5 minutes per side to 145°F. Rest on a plate.',
+   'In the same pan, cook sliced onion and apples in butter with a pinch of cinnamon for 6–8 minutes.',
+   'Spoon the apples over the chops and serve with the sweet potatoes.']);
+R('sausage_skillet', 'Sausage, Peppers & Potatoes', 35, 0,
+  { sausage: 1, potatoes: 1.5, bell_pepper: 2, onion: 1 }, [],
+  ['olive oil', 'paprika', 'salt & pepper'],
+  ['Dice the potatoes and cook covered in an oiled skillet 12 minutes, stirring now and then.',
+   'Add sliced sausage, peppers and onion with 1 tsp paprika.',
+   'Cook uncovered 10–12 minutes until the potatoes are crisp and the peppers soft. Season to taste.']);
+R('carnitas', 'Slow-Cooker Carnitas Bowls', 300, 20,
+  { pork_shoulder: 3, rice: .5, black_beans: 1, lime: 2, onion: 1, cilantro: 1, salsa: 1, avocado: 1 }, ['cilantro', 'avocado'],
+  ['cumin', 'dried oregano', 'garlic powder', 'salt'],
+  ['Rub the pork with 2 tsp salt, 1 tsp cumin, oregano and garlic powder. Put it in the slow cooker with a quartered onion and the juice of 1 lime.',
+   'Cook on low 8 hours or high 5 hours.',
+   'Shred the pork, then broil on a sheet pan 5 minutes to crisp the edges.',
+   'Serve over rice with warm beans, salsa, avocado, cilantro and lime.']);
+R('bacon_frittata', 'Bacon, Potato & Spinach Frittata', 35, 0,
+  { eggs: 1, bacon: .5, potatoes: .75, spinach: .5, cheddar: .5, bread: 1 }, ['cheddar', 'bread'],
+  ['salt & pepper'],
+  ['Heat oven to 400°F. Cook chopped bacon in an oven-safe skillet, then remove it, leaving 1 Tbsp fat.',
+   'Cook diced potatoes in the fat, covered, 10 minutes. Add the spinach to wilt.',
+   'Whisk 10 eggs with salt and pepper, pour over the vegetables, and sprinkle with bacon and cheese.',
+   'Cook 2 minutes on the stove, then bake 12–15 minutes until set. Serve with toast.']);
+R('veggie_frittata', 'Garden Veggie Frittata', 30, 0,
+  { eggs: 1, spinach: 1, mushrooms: 1, bell_pepper: 1, onion: .5, cheddar: .5 }, ['cheddar'],
+  ['olive oil', 'salt & pepper'],
+  ['Heat oven to 400°F.',
+   'Sauté sliced mushrooms, pepper and onion in oil in an oven-safe skillet 6 minutes. Add spinach to wilt.',
+   'Whisk 10 eggs with salt and pepper, pour over the vegetables, and top with cheese.',
+   'Cook 2 minutes on the stove, then bake 12–15 minutes until set.']);
+R('sweet_potato_tacos', 'Sweet Potato & Black Bean Tacos', 35, 15,
+  { sweet_potato: 1.5, black_beans: 2, corn_tortilla: 1, avocado: 1, lime: 1, cilantro: 1, onion: .5, sour_cream: 1 }, ['sour_cream', 'cilantro'],
+  ['olive oil', 'chili powder', 'cumin', 'salt'],
+  ['Heat oven to 425°F. Cube the sweet potatoes, toss with oil, chili powder, cumin and salt, and roast 25 minutes.',
+   'Warm the drained beans in a small pot with a pinch of cumin and salt.',
+   'Finely dice the onion. Mash the avocado with lime juice and salt.',
+   'Fill warm tortillas with sweet potato, beans, avocado, onion, cilantro and sour cream.']);
+R('chickpea_curry', 'Chickpea Coconut Curry', 30, 0,
+  { chickpeas: 2, coconut_milk: 1, spinach: 1, onion: 1, canned_tomatoes: 1, garlic: .25, rice: .5 }, [],
+  ['curry powder', 'vegetable oil', 'salt'],
+  ['Start the rice.',
+   'Cook diced onion in oil 5 minutes. Add garlic and 2 Tbsp curry powder for 1 minute.',
+   'Add the tomatoes, coconut milk and drained chickpeas. Simmer 15 minutes.',
+   'Stir in the spinach until wilted, season with salt, and serve over rice.']);
+R('lentil_soup', 'Hearty Lentil Soup', 50, 15,
+  { lentils: 1, carrots: .5, celery: .5, onion: 1, canned_tomatoes: 1, broth: 2, bread: 1 }, ['bread'],
+  ['olive oil', 'cumin', 'salt & pepper'],
+  ['Cook diced onion, carrot and celery in oil 8 minutes.',
+   'Add rinsed lentils, tomatoes, broth, 1 tsp cumin and 2 cups water.',
+   'Simmer 30–35 minutes until the lentils are tender. Season well.',
+   'Serve with bread for dunking.']);
+R('fried_rice', 'Veggie Fried Rice', 25, 0,
+  { rice: .5, eggs: .33, frozen_peas: 1, carrots: .5, green_onion: 1, garlic: .25 }, ['eggs'],
+  ['soy sauce', 'vegetable oil', 'sesame oil'],
+  ['Cook the rice and spread it on a tray to cool (leftover rice is even better).',
+   'Scramble 4 eggs in an oiled skillet and set aside.',
+   'Stir-fry diced carrots 3 minutes, then the peas, garlic and the white parts of the green onions.',
+   'Add the rice and fry 5 minutes. Stir in 3 Tbsp soy sauce, a few drops of sesame oil, the eggs and the green onion tops.']);
+R('primavera', 'Pasta Primavera', 30, 0,
+  { pasta: 1, zucchini: 1, bell_pepper: 1, tomatoes: .5, broccoli: .5, garlic: .25, parmesan: .5 }, ['parmesan'],
+  ['olive oil', 'salt & pepper'],
+  ['Boil the pasta in salted water. Save 1 cup of the water.',
+   'Sauté chopped zucchini, pepper and broccoli in olive oil 6–7 minutes. Add garlic and halved tomatoes for 2 minutes.',
+   'Toss with the pasta, a splash of pasta water and parmesan. Season with salt and pepper.']);
+R('baked_ziti', 'Baked Ziti with Spinach', 50, 15,
+  { pasta: 1, marinara: 1.5, mozzarella: 1, parmesan: .5, spinach: .5 }, [],
+  ['Italian seasoning', 'salt'],
+  ['Heat oven to 375°F. Boil the pasta 2 minutes less than the box says, then drain.',
+   'Mix the pasta with marinara, spinach and half the mozzarella.',
+   'Spread in a baking dish and top with the rest of the mozzarella and the parmesan.',
+   'Bake 20–25 minutes until bubbly.']);
+R('pizza', 'Homemade Pizza Night', 35, 20,
+  { pizza_dough: 2, marinara: 1, mozzarella: 2, mushrooms: 1, bell_pepper: 1 }, [],
+  ['olive oil', 'flour'],
+  ['Heat oven to 475°F with a sheet pan inside. Let the dough sit 20 minutes at room temperature.',
+   'Stretch the dough on a floured counter, then move it onto parchment.',
+   'Top with a thin layer of sauce, cheese, sliced mushrooms and peppers.',
+   'Slide onto the hot pan and bake 10–12 minutes.']);
+R('tofu_stirfry', 'Crispy Tofu & Veggie Stir-Fry', 30, 0,
+  { tofu: 2, broccoli: 1, bell_pepper: 1, mushrooms: 1, rice: .5, green_onion: 1 }, ['green_onion'],
+  ['soy sauce', 'cornstarch', 'maple syrup', 'vegetable oil'],
+  ['Start the rice. Press the tofu dry, cut it into cubes, and toss with 1 Tbsp cornstarch.',
+   'Fry the tofu in a hot oiled skillet until golden on all sides, about 8 minutes. Set aside.',
+   'Stir-fry broccoli, pepper and mushrooms 5 minutes.',
+   'Add the tofu back with 3 Tbsp soy sauce and 1 Tbsp maple syrup. Top with green onions and serve over rice.']);
+R('caesar_wraps', 'Chicken Caesar Wraps', 25, 0,
+  { chicken_breast: 1, romaine: 2, flour_tortilla: 1, parmesan: .5, greek_yogurt: .25, lemon: 1 }, [],
+  ['garlic powder', 'Dijon mustard', 'olive oil', 'salt & pepper'],
+  ['Season the chicken and cook in an oiled skillet 6–7 minutes per side to 165°F. Rest and slice.',
+   'Whisk ½ cup Greek yogurt, the lemon juice, ½ tsp garlic powder, 1 tsp Dijon, half the parmesan, salt and pepper.',
+   'Toss chopped romaine with the dressing and the rest of the parmesan.',
+   'Fill the tortillas with salad and chicken and roll up tightly.']);
+R('bbq_chicken', 'BBQ Chicken Sandwiches with Slaw', 40, 15,
+  { chicken_thigh: 2, bbq_sauce: 1, buns: 1, cabbage: .75 }, [],
+  ['mayo', 'vinegar', 'sugar', 'salt'],
+  ['Simmer the chicken thighs in ¾ cup BBQ sauce and ½ cup water, covered, 25 minutes.',
+   'Shred with two forks and stir in more sauce to taste.',
+   'Toss shredded cabbage with 3 Tbsp mayo, 1 Tbsp vinegar, 1 tsp sugar and salt.',
+   'Pile the chicken and slaw onto buns.']);
+R('greek_bowls', 'Greek Chicken Bowls', 35, 0,
+  { chicken_breast: 1.5, cucumber: 2, tomatoes: 1, rice: .5, greek_yogurt: .5, lemon: 1, onion: .5 }, ['greek_yogurt'],
+  ['olive oil', 'dried oregano', 'garlic powder', 'salt & pepper'],
+  ['Start the rice. Toss the chicken with oil, lemon juice, oregano, garlic powder, salt and pepper.',
+   'Cook the chicken in a hot skillet 6–7 minutes per side, then rest and slice.',
+   'Dice the cucumber, tomatoes and onion. Grate half a cucumber into the yogurt with salt for a quick tzatziki.',
+   'Build bowls with rice, chicken, the chopped salad and tzatziki.']);
+R('loaded_potatoes', 'Loaded Baked Potatoes', 65, 15,
+  { potatoes: 3, broccoli: 1, cheddar: 1, sour_cream: 1, green_onion: 1, bacon: .5 }, ['bacon', 'sour_cream', 'cheddar'],
+  ['olive oil', 'salt'],
+  ['Heat oven to 425°F. Rub the potatoes with oil and salt and bake 50–60 minutes until tender.',
+   'Cook the bacon until crisp and crumble it. Steam the broccoli 5 minutes.',
+   'Split the potatoes and fluff the insides with a fork.',
+   'Top with broccoli, cheese, sour cream, bacon and green onions.']);
+R('steak_dinner', 'Steak, Mashed Potatoes & Green Beans', 40, 0,
+  { steak: 1.5, potatoes: 2, green_beans: 1, butter: .25, milk: .125, garlic: .25 }, [],
+  ['olive oil', 'salt & pepper'],
+  ['Boil peeled, chunked potatoes in salted water 15 minutes. Drain and mash with butter, warm milk and salt.',
+   'Pat the steaks dry, season generously, and sear in a hot oiled skillet 4–5 minutes per side for medium-rare. Rest 5 minutes.',
+   'In the same pan, cook the green beans with garlic and a splash of water, covered, 5 minutes.',
+   'Slice the steak and serve with the potatoes and beans.']);
+R('peanut_noodles', 'Peanut Noodles with Crunchy Veggies', 20, 0,
+  { pasta: 1, peanut_butter: .5, cucumber: 1, carrots: .5, green_onion: 1, lime: 1 }, [],
+  ['soy sauce', 'honey', 'red pepper flakes'],
+  ['Boil the spaghetti, then rinse under cool water.',
+   'Whisk ½ cup peanut butter, 3 Tbsp soy sauce, 1 Tbsp honey, the lime juice and hot water until pourable.',
+   'Cut the cucumber and carrots into matchsticks.',
+   'Toss the noodles with the sauce, vegetables, green onions and a pinch of pepper flakes.']);
+
+const RECIPE_BY_ID = Object.fromEntries(RECIPES.map(r => [r.id, r]));
+
+const STORES = {
+  'Kroger': 'Kroger', 'Walmart': 'Great Value', 'Publix': 'Publix', 'H-E-B': 'H-E-B', 'Aldi': 'Aldi',
+  'Safeway / Albertsons': 'Signature Select', 'Target': 'Good & Gather', 'Meijer': 'Meijer',
+  'Food Lion': 'Food Lion', 'Wegmans': 'Wegmans', 'Hy-Vee': 'Hy-Vee', 'Harris Teeter': 'Harris Teeter',
+  'Giant': 'Giant', 'Stop & Shop': 'Stop & Shop', 'Costco': 'Kirkland', "Trader Joe's": "Trader Joe's",
+  'Other': 'Store brand',
+};
+
+const SAMPLE_AD = [
+  ['chicken_thigh', 1.49, 2.99], ['ground_beef', 3.99, 5.99], ['bell_pepper', .50, 1.29],
+  ['broccoli', 1.29, 2.49], ['pasta', .88, 1.79], ['cheddar', 1.99, 3.99], ['avocado', .69, 1.50],
+  ['sweet_potato', .79, 1.49], ['black_beans', .69, 1.29], ['salmon', 7.99, 11.99],
+  ['eggs', 1.99, 3.99], ['marinara', 1.50, 3.49],
+];
+
+/* ---------- State ---------- */
+const STORE_KEY = 'weeklySpecial.v1';
+const DEFAULT_STATE = {
+  settings: { store: 'Kroger', zip: '', people: 4, dinners: 5, budget: '', maxTime: 45, diets: [], pref: 'store' },
+  ad: [],          // [{key, sale, reg}]
+  plan: [],        // recipe ids
+  brand: {},       // key -> 'store' | 'name'
+  checked: {},     // key -> true
+  saleOnly: true,
+  open: {},        // recipe id -> expanded
+  tab: 'kitchen',
+};
+let state = load();
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      return { ...DEFAULT_STATE, ...s, settings: { ...DEFAULT_STATE.settings, ...s.settings } };
+    }
+  } catch (e) { /* storage unavailable */ }
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* storage unavailable */ }
+}
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
+const scale = () => state.settings.people / 4;
+const adMap = () => Object.fromEntries(state.ad.map(a => [a.key, a]));
+const storeBrand = () => STORES[state.settings.store] || 'Store brand';
+const hasBrands = it => it.b > it.s;
+
+const EIGHTHS = ['', '⅛', '¼', '⅜', '½', '⅝', '¾', '⅞'];
+function fq(n) {
+  let r = Math.round(n * 8) / 8;
+  if (r === 0) r = .125;
+  const w = Math.floor(r);
+  return (w ? w : '') + EIGHTHS[Math.round((r - w) * 8)];
+}
+function unitWord(u, q) {
+  if (u === 'each') return '';
+  if (q <= 1 || ['lb', 'dozen', 'half gallon'].includes(u)) return u;
+  return u === 'box' ? 'boxes' : u === 'bunch' ? 'bunches' : u + 's';
+}
+function amount(key, q) {
+  const it = CATALOG[key];
+  return it.u === 'each' ? `${fq(q)} × ${it.n}` : `${fq(q)} ${unitWord(it.u, q)} ${it.n}`;
+}
+function perUnit(u) { return u === 'each' ? ' each' : '/' + (u === 'half gallon' ? '½ gal' : u); }
+function buyQty(key, q) {
+  return CATALOG[key].u === 'lb' ? Math.ceil(q * 4 - 1e-9) / 4 : Math.max(1, Math.ceil(q - 1e-9));
+}
+function brandFor(key) { return state.brand[key] || state.settings.pref; }
+function unitPrice(key, ad) {
+  if (ad[key]) return ad[key].sale;
+  const it = CATALOG[key];
+  return brandFor(key) === 'name' ? it.b : it.s;
+}
+function forbidden() { return new Set(state.settings.diets.flatMap(d => DIETS[d].no)); }
+
+/* Applies the household's diet and size to a recipe.
+   Returns null if a required ingredient conflicts with the diet. */
+function evalRecipe(r) {
+  const bad = forbidden(), ad = adMap(), k = scale();
+  const ings = [], skipped = [];
+  for (const [key, q] of Object.entries(r.ings)) {
+    const it = CATALOG[key];
+    if (it.f.some(f => bad.has(f))) {
+      if (r.opt.includes(key)) { skipped.push(key); continue; }
+      return null;
+    }
+    ings.push({ key, qty: q * k, sale: !!ad[key] });
+  }
+  const swaps = r.pantry
+    .filter(p => PANTRY[p] && PANTRY[p].f.some(f => bad.has(f)))
+    .map(p => `Use ${PANTRY[p].swap} instead of ${p}.`);
+  let cost = 0, saleSave = 0;
+  const saleItems = [];
+  for (const i of ings) {
+    cost += i.qty * unitPrice(i.key, ad);
+    if (i.sale) {
+      saleItems.push(i.key);
+      saleSave += i.qty * Math.max(0, ad[i.key].reg - ad[i.key].sale);
+    }
+  }
+  const perServing = cost / state.settings.people;
+  const score = saleSave + 1.5 * saleItems.length - 0.5 * perServing;
+  return { r, ings, skipped, swaps, cost, perServing, saleSave, saleItems, score };
+}
+
+function candidates() {
+  return RECIPES.map(evalRecipe)
+    .filter(e => e && e.r.active <= state.settings.maxTime)
+    .sort((a, b) => b.score - a.score);
+}
+
+/* Combines the planned recipes into one shopping list with prices. */
+function buildList(planIds) {
+  const ad = adMap(), k = scale(), need = {}, pantry = new Set(), warnings = [];
+  for (const id of planIds) {
+    const r = RECIPE_BY_ID[id];
+    if (!r) continue;
+    const e = evalRecipe(r);
+    if (!e) warnings.push(r.name);
+    const ings = e ? e.ings : Object.entries(r.ings).map(([key, q]) => ({ key, qty: q * k }));
+    for (const i of ings) need[i.key] = (need[i.key] || 0) + i.qty;
+    r.pantry.flatMap(p => p === 'salt & pepper' ? ['salt', 'pepper'] : [p]).forEach(p => pantry.add(p));
+  }
+  let total = 0, regular = 0, saleSave = 0, brandSave = 0;
+  const items = Object.entries(need).map(([key, q]) => {
+    const it = CATALOG[key], buy = buyQty(key, q), sale = ad[key];
+    const brand = sale ? 'sale' : (hasBrands(it) ? brandFor(key) : 'store');
+    const price = sale ? sale.sale : (brand === 'name' ? it.b : it.s);
+    const reg = sale ? Math.max(sale.reg, sale.sale) : it.b;
+    const cost = buy * price;
+    total += cost;
+    regular += buy * reg;
+    if (sale) saleSave += buy * (reg - sale.sale);
+    else if (brand === 'store') brandSave += buy * (it.b - it.s);
+    return { key, it, q, buy, sale, brand, price, cost, reg };
+  });
+  items.sort((a, b) => CATS.indexOf(a.it.c) - CATS.indexOf(b.it.c) || a.it.n.localeCompare(b.it.n));
+  return { items, pantry: [...pantry].sort(), total, regular, saleSave, brandSave, warnings };
+}
+
+function autoPlan() {
+  const budget = parseFloat(state.settings.budget) || Infinity;
+  let pool = candidates();
+  if (state.ad.length && state.saleOnly) {
+    const sale = pool.filter(e => e.saleItems.length);
+    if (sale.length >= state.settings.dinners) pool = sale;
+  }
+  const plan = [], mains = new Set();
+  const main = e => Object.keys(e.r.ings)[0];
+  while (plan.length < state.settings.dinners && pool.length) {
+    pool.sort((a, b) => (b.score - (mains.has(main(b)) ? 6 : 0)) - (a.score - (mains.has(main(a)) ? 6 : 0)));
+    const pick = pool.find(e => buildList([...plan, e.r.id]).total <= budget);
+    if (!pick) break;
+    plan.push(pick.r.id);
+    mains.add(main(pick));
+    pool = pool.filter(e => e !== pick);
+  }
+  return plan;
+}
+
+/* ---------- Ad text parsing ---------- */
+const MATCHERS = Object.values(CATALOG)
+  .flatMap(it => [it.n.toLowerCase().replace(/\s*\(.*\)/, ''), ...it.a].map(t => ({ t, key: it.key })))
+  .sort((a, b) => b.t.length - a.t.length);
+
+function matchItem(text) {
+  const s = ' ' + text.toLowerCase().replace(/[^a-z0-9¢$.\s]/g, ' ').replace(/\s+/g, ' ') + ' ';
+  const m = MATCHERS.find(m => s.includes(' ' + m.t + ' ') || s.includes(' ' + m.t + 's '));
+  return m ? m.key : null;
+}
+function parsePrices(line) {
+  let reg = null;
+  let rest = line.replace(/\b(?:reg(?:ular|\.)?|was)\s*:?\s*\$?\s*(\d+(?:\.\d{1,2})?)/i, (_, p) => { reg = parseFloat(p); return ' '; });
+  let sale = null;
+  const multi = rest.match(/(\d+)\s*(?:for|\/)\s*\$\s*(\d+(?:\.\d{1,2})?)/i);
+  if (multi) sale = parseFloat(multi[2]) / parseInt(multi[1], 10);
+  if (sale == null) {
+    const cents = rest.match(/(\d{1,2})\s*¢/);
+    if (cents) sale = parseInt(cents[1], 10) / 100;
+  }
+  if (sale == null) {
+    const p = rest.match(/\$\s*(\d*\.?\d+)|(\d*\.\d{2})/);
+    if (p) sale = parseFloat(p[1] || p[2]);
+  }
+  return { sale, reg };
+}
+function addAdItem(key, sale, reg) {
+  const it = CATALOG[key];
+  const r = reg && reg > 0 ? reg : Math.max(it.b, sale);
+  state.ad = state.ad.filter(a => a.key !== key);
+  state.ad.push({ key, sale: Math.round(sale * 100) / 100, reg: Math.round(r * 100) / 100 });
+}
+
+/* ---------- Rendering ---------- */
+function weekOf() {
+  const d = new Date();
+  d.setDate(d.getDate() - d.getDay());
+  return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function renderHeader() {
+  $('#weekOf').textContent = 'Week of ' + weekOf();
+  const s = state.settings;
+  $('#storeLine').textContent = [s.store !== 'Other' ? s.store : '', s.zip, `Feeds ${s.people}`].filter(Boolean).join(' · ');
+  const ab = $('#adBadge'), pb = $('#planBadge');
+  ab.hidden = !state.ad.length; ab.textContent = state.ad.length;
+  pb.hidden = !state.plan.length; pb.textContent = state.plan.length;
+  document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === state.tab));
+  document.querySelectorAll('main section, .wrap > section').forEach(sec => { sec.hidden = sec.id !== 'tab-' + state.tab; });
+}
+
+function renderKitchen() {
+  const s = state.settings;
+  $('#store').innerHTML = Object.keys(STORES).map(n => `<option ${n === s.store ? 'selected' : ''}>${esc(n)}</option>`).join('');
+  $('#zip').value = s.zip;
+  $('#people').textContent = s.people;
+  $('#dinners').textContent = s.dinners;
+  $('#budget').value = s.budget;
+  $('#maxTime').value = String(s.maxTime);
+  $('#diets').innerHTML = Object.entries(DIETS).map(([k, d]) =>
+    `<button class="chip" data-diet="${k}" aria-pressed="${s.diets.includes(k)}">${d.label}</button>`).join('');
+  document.querySelectorAll('[data-pref]').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.pref === s.pref);
+    if (b.dataset.pref === 'store') b.textContent = `Store brand (${storeBrand()})`;
+  });
+}
+
+function renderAd() {
+  const s = state.settings;
+  const store = s.store === 'Other' ? 'your store' : s.store;
+  const q = encodeURIComponent(`${s.store === 'Other' ? 'grocery' : s.store} weekly ad ${s.zip}`.trim());
+  $('#findAdLink').href = `https://www.google.com/search?q=${q}`;
+  $('#findAdTitle').textContent = `Find ${store === 'your store' ? 'the' : store + "'s"} weekly ad`;
+  $('#findAdNote').textContent = s.zip
+    ? `Opens a search for ${store}'s ad near ${s.zip}. Most stores post it online or in their app.`
+    : 'Add your ZIP code on the Your Kitchen tab to find the ad for your local store.';
+
+  const list = $('#adList');
+  if (!state.ad.length) {
+    list.innerHTML = `<li class="empty" style="display:block">No sale items yet. Add some above, or load the sample ad to try it out.</li>`;
+    return;
+  }
+  list.innerHTML = state.ad
+    .slice()
+    .sort((a, b) => CATS.indexOf(CATALOG[a.key].c) - CATS.indexOf(CATALOG[b.key].c))
+    .map(a => {
+      const it = CATALOG[a.key];
+      const pct = a.reg > a.sale ? Math.round((1 - a.sale / a.reg) * 100) : 0;
+      const tip = hasBrands(it) && it.s < a.sale
+        ? `<div class="note">${esc(storeBrand())} is usually ${money(it.s)}${perUnit(it.u)}, cheaper than this sale.</div>` : '';
+      return `<li>
+        <div><div class="name">${esc(it.n)}</div><div class="small muted sans">${esc(it.c)}${pct ? ` · <span class="save">${pct}% off</span>` : ''}</div>${tip}</div>
+        <div class="prices"><strong>${money(a.sale)}</strong>${perUnit(it.u)}<br><span class="strike">${money(a.reg)}</span></div>
+        <button class="x" data-remove-ad="${a.key}" aria-label="Remove ${esc(it.n)}">×</button>
+      </li>`;
+    }).join('');
+}
+
+function recipeCard(e) {
+  const r = e.r, inPlan = state.plan.includes(r.id), open = !!state.open[r.id];
+  const ad = adMap();
+  const time = r.time > r.active ? `${r.active} min hands-on · ${r.time >= 120 ? Math.round(r.time / 60 * 2) / 2 + ' hr' : r.time + ' min'} total` : `${r.time} min`;
+  const uses = e.saleItems.length
+    ? `<p class="uses"><span class="sale-tag">On sale</span> ${e.saleItems.map(k => esc(CATALOG[k].n.replace(/\s*\(.*\)/, ''))).join(', ')}</p>`
+    : `<p class="uses muted small">No sale items in this one.</p>`;
+  let body = '';
+  if (open) {
+    const ings = e.ings.map(i =>
+      `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` <span class="sale-tag">Sale ${money(ad[i.key].sale)}${perUnit(CATALOG[i.key].u)}</span>` : ''}</li>`).join('');
+    const notes = [
+      ...e.skipped.map(k => `Leave off the ${CATALOG[k].n.replace(/\s*\(.*\)/, '').toLowerCase()} to fit your diet.`),
+      ...e.swaps,
+    ];
+    body = `<div class="body">
+      <strong class="sans small">Ingredients (serves ${state.settings.people})</strong>
+      <ul>${ings}</ul>
+      <div class="small muted">From the pantry: ${esc(r.pantry.join(', '))}</div>
+      ${notes.length ? `<ul class="small">${notes.map(n => `<li class="tip">${esc(n)}</li>`).join('')}</ul>` : ''}
+      <strong class="sans small">Method</strong>
+      <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+    </div>`;
+  }
+  return `<article class="card recipe">
+    <h3>${esc(r.name)}</h3>
+    <div class="meta"><span>⏱ ${time}</span><span>≈ ${money(e.perServing)}/serving</span></div>
+    ${uses}
+    ${body}
+    <div class="foot">
+      ${e.saleSave >= 0.5 ? `<span class="pill">Saves ${money(e.saleSave)}</span>` : '<span></span>'}
+      <div class="row" style="gap:6px">
+        <button class="btn sm plain" data-toggle-open="${r.id}">${open ? 'Hide' : 'Recipe'}</button>
+        <button class="btn sm ${inPlan ? 'added' : ''}" data-toggle-plan="${r.id}">${inPlan ? '✓ In this week' : '+ Add to week'}</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderRecipes() {
+  const all = candidates();
+  const chip = $('#saleOnlyChip');
+  chip.hidden = !state.ad.length;
+  chip.setAttribute('aria-pressed', state.saleOnly);
+  const shown = state.ad.length && state.saleOnly ? all.filter(e => e.saleItems.length) : all;
+  const parts = [`${shown.length} recipe${shown.length === 1 ? '' : 's'} fit your kitchen`];
+  parts.push(state.ad.length ? 'best sale savings first' : 'add sale items on the Sale Ad tab to rank them by savings');
+  $('#recipesLede').textContent = parts.join(', ') + '. Each one is sized for ' + state.settings.people + ' people.';
+  $('#recipeGrid').innerHTML = shown.length
+    ? shown.map(recipeCard).join('')
+    : `<div class="card empty" style="grid-column:1/-1">Nothing matches right now. Try allowing more cooking time or turning off a dietary filter.</div>`;
+}
+
+function renderList() {
+  const s = state.settings;
+  const L = buildList(state.plan);
+  const budget = parseFloat(s.budget);
+  const lede = $('#listLede');
+  if (!state.plan.length) {
+    lede.textContent = '';
+    $('#listBody').innerHTML = `<div class="card empty">
+      <p>No dinners picked yet.</p>
+      <button class="btn" id="autoPlanBtn2">✨ Plan my week for me</button>
+      <p class="small">or choose recipes yourself on the <a href="#" data-goto="recipes">Recipes</a> tab.</p></div>`;
+    return;
+  }
+  lede.textContent = `Everything for ${state.plan.length} dinner${state.plan.length === 1 ? '' : 's'} at ${s.store === 'Other' ? 'your store' : s.store}, sorted by aisle. Tap items as you shop.`;
+  const saved = L.regular - L.total;
+  let meter = '';
+  if (budget > 0) {
+    const pct = Math.min(100, L.total / budget * 100);
+    const over = L.total > budget;
+    meter = `<div class="meter ${over ? 'over' : ''}"><div style="width:${pct}%"></div></div>
+      <div class="small sans ${over ? '' : 'muted'}" style="${over ? 'color:var(--accent)' : ''}">${money(L.total)} of your ${money(budget)} budget${over ? ` (${money(L.total - budget)} over)` : ` · ${money(budget - L.total)} left`}</div>`;
+  }
+  const plan = state.plan.map(id => {
+    const r = RECIPE_BY_ID[id];
+    const warn = L.warnings.includes(r.name) ? ' <span class="small" style="color:var(--accent)">(doesn\'t fit your diet)</span>' : '';
+    return `<li><span>${esc(r.name)}${warn}</span><button class="x" data-toggle-plan="${id}" aria-label="Remove ${esc(r.name)}">×</button></li>`;
+  }).join('');
+
+  let shop = '', cat = '';
+  for (const i of L.items) {
+    if (i.it.c !== cat) {
+      if (cat) shop += '</ul>';
+      cat = i.it.c;
+      shop += `<div class="cat">${esc(cat)}</div><ul class="shop">`;
+    }
+    const done = !!state.checked[i.key];
+    const qty = i.it.u === 'each' ? `${fq(i.buy)} ×` : `${fq(i.buy)} ${unitWord(i.it.u, i.buy)}`;
+    let sub = `${money(i.price)}${perUnit(i.it.u)}`;
+    if (i.sale) {
+      sub = `<span class="sale-tag">Sale</span> ${sub} <span class="strike">${money(i.reg)}</span>`;
+      if (hasBrands(i.it) && i.it.s < i.sale.sale) sub += ` <span class="tip">${esc(storeBrand())} is usually ${money(i.it.s)}</span>`;
+    } else if (hasBrands(i.it)) {
+      sub = `<span class="seg">
+        <button data-brand="${i.key}:store" aria-pressed="${i.brand === 'store'}">${esc(storeBrand())} ${money(i.it.s)}</button>
+        <button data-brand="${i.key}:name" aria-pressed="${i.brand === 'name'}">Name brand ${money(i.it.b)}</button>
+      </span>`;
+    }
+    shop += `<li class="${done ? 'done' : ''}">
+      <input type="checkbox" data-check="${i.key}" ${done ? 'checked' : ''} aria-label="Got ${esc(i.it.n)}">
+      <div><div class="what">${esc(qty)} ${esc(i.it.n)}</div><div class="sub">${sub}</div></div>
+      <div class="cost">${money(i.cost)}</div>
+    </li>`;
+  }
+  if (cat) shop += '</ul>';
+
+  $('#listBody').innerHTML = `
+    <div class="card">
+      <div class="totals">
+        <div><div class="num">${money(L.total)}</div><div class="lbl">Estimated total</div></div>
+        <div class="big"><div class="num">${money(saved)}</div><div class="lbl">You save</div></div>
+        <div><div class="num">${money(L.total / (state.plan.length * s.people))}</div><div class="lbl">Per serving</div></div>
+      </div>
+      ${meter}
+      <p class="note">Without the sales and store brands this would be about ${money(L.regular)}. Sale prices save ${money(L.saleSave)}${L.brandSave > 0.005 ? ` and store brands save ${money(L.brandSave)}` : ''}. Prices for items not in the ad are typical estimates.</p>
+    </div>
+
+    <div class="card">
+      <h3>This week's dinners</h3>
+      <ul class="plan-list">${plan}</ul>
+    </div>
+
+    <div class="card">
+      <div class="spread" style="margin-bottom:8px">
+        <h3 style="margin:0">Shopping list</h3>
+        <button class="btn sm plain" id="uncheckBtn">Uncheck all</button>
+      </div>
+      ${shop}
+    </div>
+
+    <div class="card">
+      <h3>Check the pantry for</h3>
+      <p class="small" style="margin:0">${esc(L.pantry.join(', '))}</p>
+    </div>
+
+    <div class="row no-print">
+      <button class="btn" id="shareBtn">Share list</button>
+      <button class="btn ghost" id="printBtn">Print this week's column</button>
+      <button class="btn plain" id="newWeekBtn">Start a new week</button>
+    </div>
+    <div class="flash" id="shareFlash"></div>`;
+}
+
+function renderPrintColumn() {
+  const s = state.settings;
+  const evs = state.plan.map(id => RECIPE_BY_ID[id]).filter(Boolean).map(r => evalRecipe(r) || null).filter(Boolean);
+  const L = buildList(state.plan);
+  const ad = adMap();
+  $('#printColumn').innerHTML = `
+    <p class="lede" style="text-align:center">${esc(s.store)} specials · serves ${s.people} · estimated ${money(L.total)}, saving ${money(L.regular - L.total)}</p>
+    <div class="pc-cols">
+      ${evs.map(e => `<div class="pc-recipe">
+        <h3>${esc(e.r.name)}</h3>
+        <div class="small"><em>${e.r.time} minutes${e.saleItems.length ? ' · On sale: ' + e.saleItems.map(k => esc(CATALOG[k].n)).join(', ') : ''}</em></div>
+        <ul>${e.ings.map(i => `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` (sale ${money(ad[i.key].sale)})` : ''}</li>`).join('')}</ul>
+        <ol>${e.r.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
+      </div>`).join('')}
+      <div class="pc-recipe"><h3>Shopping list</h3><ul>${L.items.map(i => `<li>${esc(i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy))} ${esc(i.it.n)}: ${money(i.cost)}</li>`).join('')}</ul></div>
+    </div>`;
+}
+
+function listText() {
+  const L = buildList(state.plan);
+  const lines = [`The Weekly Special, week of ${weekOf()}`, '', 'Dinners:'];
+  state.plan.forEach(id => lines.push('• ' + RECIPE_BY_ID[id].name));
+  let cat = '';
+  for (const i of L.items) {
+    if (i.it.c !== cat) { cat = i.it.c; lines.push('', cat.toUpperCase()); }
+    const qty = i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy);
+    const tag = i.sale ? ' (SALE)' : hasBrands(i.it) ? (i.brand === 'store' ? ` (${storeBrand()})` : ' (name brand)') : '';
+    lines.push(`☐ ${qty} ${i.it.n}${tag}: ${money(i.cost)}`);
+  }
+  lines.push('', `Estimated total ${money(L.total)}, saving ${money(L.regular - L.total)}`);
+  return lines.join('\n');
+}
+
+function render() {
+  renderHeader();
+  if (state.tab === 'kitchen') renderKitchen();
+  if (state.tab === 'ad') renderAd();
+  if (state.tab === 'recipes') renderRecipes();
+  if (state.tab === 'list') renderList();
+}
+function go(tab) {
+  state.tab = tab;
+  save();
+  render();
+  window.scrollTo({ top: 0 });
+}
+
+/* ---------- Events ---------- */
+$('#catalogList').innerHTML = Object.values(CATALOG)
+  .sort((a, b) => a.n.localeCompare(b.n))
+  .map(it => `<option value="${esc(it.n)}"></option>`).join('');
+
+function setSetting(k, v) { state.settings[k] = v; save(); renderHeader(); }
+$('#store').addEventListener('change', e => { setSetting('store', e.target.value); renderKitchen(); });
+$('#zip').addEventListener('input', e => setSetting('zip', e.target.value.trim()));
+$('#budget').addEventListener('input', e => setSetting('budget', e.target.value));
+$('#maxTime').addEventListener('change', e => setSetting('maxTime', parseInt(e.target.value, 10)));
+
+function findCatalog(name) {
+  const n = name.trim().toLowerCase();
+  const exact = Object.values(CATALOG).find(it => it.n.toLowerCase() === n);
+  return exact ? exact.key : matchItem(n);
+}
+$('#addName').addEventListener('input', e => {
+  const key = findCatalog(e.target.value);
+  const it = key && CATALOG[key];
+  $('#saleLbl').textContent = it ? `Sale price ${perUnit(it.u)}` : 'Sale price';
+  $('#regLbl').textContent = it ? `Regular ${perUnit(it.u)}` : 'Regular price';
+  $('#addReg').placeholder = it ? `about ${money(it.b)}` : 'optional';
+});
+function addFromForm() {
+  const flash = $('#addFlash');
+  const key = findCatalog($('#addName').value);
+  const sale = parseFloat($('#addSale').value);
+  const reg = parseFloat($('#addReg').value);
+  if (!key) { flash.textContent = "That item isn't in the recipe collection yet. Try a more common name (for example, \"ground beef\")."; return; }
+  if (!(sale > 0)) { flash.textContent = 'Enter the sale price.'; $('#addSale').focus(); return; }
+  addAdItem(key, sale, reg);
+  save();
+  flash.textContent = `Added ${CATALOG[key].n}.`;
+  $('#addName').value = ''; $('#addSale').value = ''; $('#addReg').value = '';
+  $('#addName').dispatchEvent(new Event('input'));
+  $('#addName').focus();
+  renderHeader(); renderAd();
+}
+$('#addBtn').addEventListener('click', addFromForm);
+['#addSale', '#addReg', '#addName'].forEach(sel => $(sel).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addFromForm(); } }));
+
+$('#pasteBtn').addEventListener('click', () => {
+  const added = [], missed = [];
+  for (const line of $('#pasteText').value.split(/\n+/).map(l => l.trim()).filter(Boolean)) {
+    const key = matchItem(line);
+    const { sale, reg } = parsePrices(line);
+    if (key && sale > 0) { addAdItem(key, sale, reg); added.push(CATALOG[key].n); }
+    else missed.push(line);
+  }
+  save();
+  let msg = added.length ? `Added ${added.length}: ${added.join(', ')}.` : 'Nothing added.';
+  if (missed.length) msg += ` Couldn't read: ${missed.join('; ')}. (Each line needs an item from the recipe collection and a price.)`;
+  $('#pasteFlash').textContent = msg;
+  if (added.length) $('#pasteText').value = missed.join('\n');
+  renderHeader(); renderAd();
+});
+$('#sampleBtn').addEventListener('click', () => {
+  SAMPLE_AD.forEach(([k, s, r]) => addAdItem(k, s, r));
+  save(); renderHeader(); renderAd();
+});
+$('#clearAdBtn').addEventListener('click', () => {
+  if (state.ad.length && !confirm('Remove all sale items?')) return;
+  state.ad = []; save(); renderHeader(); renderAd();
+});
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, a, input');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.tab) return go(d.tab);
+  if (d.goto) { e.preventDefault(); return go(d.goto); }
+  if (d.step) {
+    const lim = { people: [1, 12], dinners: [1, 7] }[d.step];
+    const v = Math.min(lim[1], Math.max(lim[0], state.settings[d.step] + parseInt(d.d, 10)));
+    setSetting(d.step, v);
+    return renderKitchen();
+  }
+  if (d.diet) {
+    const s = state.settings;
+    s.diets = s.diets.includes(d.diet) ? s.diets.filter(x => x !== d.diet) : [...s.diets, d.diet];
+    save(); return renderKitchen();
+  }
+  if (d.pref) { state.settings.pref = d.pref; state.brand = {}; save(); return renderKitchen(); }
+  if (d.removeAd) { state.ad = state.ad.filter(a => a.key !== d.removeAd); save(); renderHeader(); return renderAd(); }
+  if (d.toggleOpen) { state.open[d.toggleOpen] = !state.open[d.toggleOpen]; save(); return renderRecipes(); }
+  if (d.togglePlan) {
+    const id = d.togglePlan;
+    state.plan = state.plan.includes(id) ? state.plan.filter(x => x !== id) : [...state.plan, id];
+    save(); return render();
+  }
+  if (d.brand) { const [k, b] = d.brand.split(':'); state.brand[k] = b; save(); return renderList(); }
+  if (d.check) { state.checked[d.check] = t.checked; save(); t.closest('li').classList.toggle('done', t.checked); return; }
+  if (t.id === 'saleOnlyChip') { state.saleOnly = !state.saleOnly; save(); return renderRecipes(); }
+  if (t.id === 'autoPlanBtn' || t.id === 'autoPlanBtn2') {
+    state.plan = autoPlan(); state.checked = {}; save();
+    if (!state.plan.length) { alert('No recipes fit your budget and settings. Try raising the budget or cooking time.'); return render(); }
+    return go('list');
+  }
+  if (t.id === 'uncheckBtn') { state.checked = {}; save(); return renderList(); }
+  if (t.id === 'printBtn') { renderPrintColumn(); return window.print(); }
+  if (t.id === 'newWeekBtn') {
+    if (!confirm("Clear this week's sale items, dinners and checkmarks? Your kitchen settings stay.")) return;
+    state.ad = []; state.plan = []; state.checked = {}; state.brand = {}; state.open = {};
+    return go('ad');
+  }
+  if (t.id === 'shareBtn') {
+    const text = listText();
+    if (navigator.share) { navigator.share({ title: 'Grocery list', text }).catch(() => {}); return; }
+    const done = () => { $('#shareFlash').textContent = 'Copied the list. Paste it into a text or note.'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => { $('#shareFlash').textContent = 'Could not copy on this device.'; });
+  }
+});
+window.addEventListener('beforeprint', renderPrintColumn);
+
+render();
+</script>
+</body>
+</html>
