@@ -51,7 +51,7 @@ body {
   font-size: 17px;
   line-height: 1.5;
 }
-.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px 110px; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 0 110px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 /* Masthead */
 .masthead { text-align: center; padding-top: max(14px, env(safe-area-inset-top)); }
@@ -371,6 +371,7 @@ details > summary { cursor: pointer; font-family: var(--sans); font-weight: 600;
     <div class="kicker">Step 3</div>
     <h2>This week's recipes</h2>
     <p class="lede" id="recipesLede"></p>
+    <div class="flash" id="planFlash" style="color:var(--accent)"></div>
     <div class="toolbar">
       <button class="btn" id="autoPlanBtn">✨ Plan my week for me</button>
       <div class="chips">
@@ -1239,8 +1240,17 @@ $('#sampleBtn').addEventListener('click', () => {
   SAMPLE_AD.forEach(([k, s, r]) => addAdItem(k, s, r));
   save(); renderHeader(); renderAd();
 });
-$('#clearAdBtn').addEventListener('click', () => {
-  if (state.ad.length && !confirm('Remove all sale items?')) return;
+// Asks for a second tap instead of a confirm() dialog.
+function armed(btn) {
+  if (btn.dataset.armed) return true;
+  const label = btn.textContent;
+  btn.dataset.armed = '1';
+  btn.textContent = 'Tap again to confirm';
+  setTimeout(() => { delete btn.dataset.armed; btn.textContent = label; }, 3000);
+  return false;
+}
+$('#clearAdBtn').addEventListener('click', e => {
+  if (state.ad.length && !armed(e.currentTarget)) return;
   state.ad = []; save(); renderHeader(); renderAd();
 });
 
@@ -1274,21 +1284,37 @@ document.addEventListener('click', e => {
   if (t.id === 'saleOnlyChip') { state.saleOnly = !state.saleOnly; save(); return renderRecipes(); }
   if (t.id === 'autoPlanBtn' || t.id === 'autoPlanBtn2') {
     state.plan = autoPlan(); state.checked = {}; save();
-    if (!state.plan.length) { alert('No recipes fit your budget and settings. Try raising the budget or cooking time.'); return render(); }
+    if (!state.plan.length) {
+      state.tab = 'recipes'; render();
+      $('#planFlash').textContent = 'No recipes fit your budget and settings. Try raising the budget or the cooking time.';
+      return;
+    }
     return go('list');
   }
   if (t.id === 'uncheckBtn') { state.checked = {}; save(); return renderList(); }
   if (t.id === 'printBtn') { renderPrintColumn(); return window.print(); }
   if (t.id === 'newWeekBtn') {
-    if (!confirm("Clear this week's sale items, dinners and checkmarks? Your kitchen settings stay.")) return;
+    if (!armed(t)) return;
     state.ad = []; state.plan = []; state.checked = {}; state.brand = {}; state.open = {};
     return go('ad');
   }
   if (t.id === 'shareBtn') {
     const text = listText();
-    if (navigator.share) { navigator.share({ title: 'Grocery list', text }).catch(() => {}); return; }
-    const done = () => { $('#shareFlash').textContent = 'Copied the list. Paste it into a text or note.'; };
-    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => { $('#shareFlash').textContent = 'Could not copy on this device.'; });
+    const flash = $('#shareFlash');
+    const showText = () => {
+      flash.innerHTML = '<p class="small">Copy this list:</p><textarea id="shareText" readonly></textarea>';
+      $('#shareText').value = text;
+      $('#shareText').select();
+    };
+    const copy = () => {
+      if (!navigator.clipboard) return showText();
+      navigator.clipboard.writeText(text).then(() => { flash.textContent = 'Copied the list. Paste it into a text or note.'; }, showText);
+    };
+    if (navigator.share) {
+      navigator.share({ title: 'Grocery list', text }).catch(err => { if (err.name !== 'AbortError') copy(); });
+      return;
+    }
+    copy();
   }
 });
 window.addEventListener('beforeprint', renderPrintColumn);
