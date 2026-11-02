@@ -1030,9 +1030,10 @@ function renderAd() {
   const q = encodeURIComponent(`${s.store === 'Other' ? 'grocery' : s.store} weekly ad ${s.zip}`.trim());
   $('#findAdLink').href = `https://www.google.com/search?q=${q}`;
   $('#findAdTitle').textContent = `Find ${store === 'your store' ? 'the' : store + "'s"} weekly ad`;
-  $('#findAdNote').textContent = s.zip
-    ? `Opens a search for ${store}'s ad near ${s.zip}. Most stores post it online or in their app.`
-    : 'Add your ZIP code on the Your Kitchen tab to find the ad for your local store.';
+  const where = s.zip ? `Searches for ${store}'s ad near ${s.zip}.` : 'Add your ZIP code on the Your Kitchen tab to find your local ad.';
+  $('#findAdNote').textContent = where + (sampleFn
+    ? ` The ad opens in your browser, because this page can't show other websites. Screenshot the ad pages there (or in the ${store === 'your store' ? "store's" : store} app), then come back here and tap Add ad screenshots.`
+    : ' Most stores post it online or in their app.');
 
   const list = $('#adList');
   if (!state.ad.length) {
