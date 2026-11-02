@@ -981,9 +981,11 @@ function renderAd() {
   renderFound();
   const store = s.store === 'Other' ? 'your store' : s.store;
   const q = encodeURIComponent(`${s.store === 'Other' ? 'grocery' : s.store} weekly ad ${s.zip}`.trim());
-  $('#findAdLink').href = `https://www.google.com/search?q=${q}`;
+  // Stores whose circular page we know; others get a search for their ad.
+  const AD_PAGES = { 'ShopRite': 'https://www.shoprite.com/circulars' };
+  $('#findAdLink').href = AD_PAGES[s.store] || `https://www.google.com/search?q=${q}`;
   $('#findAdTitle').textContent = `Find ${store === 'your store' ? 'the' : store + "'s"} weekly ad`;
-  const where = s.zip ? `Searches for ${store}'s ad near ${s.zip}.` : 'Add your ZIP code on the Your Kitchen tab to find your local ad.';
+  const where = AD_PAGES[s.store] ? `Opens ${store}'s weekly ad. Pick your store there if it asks.` : s.zip ? `Searches for ${store}'s ad near ${s.zip}.` : 'Add your ZIP code on the Your Kitchen tab to find your local ad.';
   $('#findAdNote').textContent = `${where} Screenshot the ad pages there (or in the ${store === 'your store' ? "store's" : store} app), then come back here and tap Add ad screenshots.`;
 
   const list = $('#adList');
