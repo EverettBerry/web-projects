@@ -65,19 +65,19 @@ section { margin-bottom: 18px; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .spread { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-.setup { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 10px; align-items: end; }
-@media (max-width: 420px) { .setup { grid-template-columns: 1fr 1fr; } .setup .people { grid-column: 1 / -1; } }
-label.field, .field { display: block; font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--muted); }
-.field > span { display: block; margin-bottom: 4px; }
-input, select { font-family: var(--sans); font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 9px 10px; width: 100%; min-width: 0; }
-input:focus, select:focus, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.stepper { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); width: max-content; }
-.stepper button { appearance: none; border: 0; background: none; color: var(--ink); font-size: 20px; width: 40px; height: 40px; cursor: pointer; }
-.stepper output { min-width: 28px; text-align: center; font-family: var(--sans); font-weight: 700; }
-details.more { margin-top: 10px; border-top: 1px dotted var(--rule); padding-top: 8px; }
-details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--accent); }
-.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-.more-grid .full { grid-column: 1 / -1; }
+.step h2 { margin-bottom: 10px; }
+.hint { font-family: var(--sans); font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+.next { margin-top: 14px; }
+.answers { list-style: none; margin: 0; padding: 0; }
+.answers:not(:empty) + .step:not([hidden]) { border-top: 1px dotted var(--rule); margin-top: 8px; padding-top: 12px; }
+.answers li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 0; font-family: var(--sans); font-size: 14px; }
+.answers .lbl { color: var(--muted); min-width: 64px; display: inline-block; }
+.link { appearance: none; border: 0; background: none; padding: 4px 0; font-family: var(--sans); font-size: 13px; color: var(--accent); text-decoration: underline; cursor: pointer; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.choice { appearance: none; text-align: left; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 12px; border-radius: 8px; cursor: pointer; }
+.choice[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.others { margin-top: 12px; }
+.others > summary { cursor: pointer; font-family: var(--sans); font-size: 14px; color: var(--accent); margin-bottom: 8px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { appearance: none; border: 1px solid var(--rule); background: var(--chip); color: var(--ink); font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
 .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -108,9 +108,6 @@ details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 1
 .totals .num { font-family: var(--display); font-size: 1.5rem; font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .totals .lbl { font-family: var(--sans); font-size: 12px; color: var(--muted); }
 .totals .save .num { color: var(--good); }
-.meter { height: 8px; background: var(--chip); border-radius: 999px; overflow: hidden; margin: 4px 0; }
-.meter > div { height: 100%; background: var(--good); }
-.meter.over > div { background: var(--accent); }
 .cat { font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 14px 0 2px; }
 .shop { list-style: none; margin: 0; padding: 0; }
 .shop li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
@@ -130,42 +127,32 @@ details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 1
   <header>
     <div class="dateline" id="dateline"></div>
     <h1>The Weekly Special</h1>
-    <p class="tagline">This week's dinners, built from what's on sale.</p>
+    <p class="tagline">Five dinners for four, built from what's on sale this week.</p>
   </header>
 
-  <section class="card">
-    <div class="setup">
-      <label class="field"><span>ZIP code</span><input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="07030"></label>
-      <label class="field"><span>Store</span><select id="store"></select></label>
-      <div class="field people"><span>People</span>
-        <div class="stepper"><button data-step="people" data-d="-1" aria-label="Fewer people">−</button><output id="peopleOut"></output><button data-step="people" data-d="1" aria-label="More people">+</button></div>
-      </div>
+  <section class="card" id="setup">
+    <ul class="answers" id="answers"></ul>
+
+    <div class="step" id="step-zip" hidden>
+      <h2>What's your ZIP code?</h2>
+      <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="07030" aria-label="ZIP code">
+      <p class="hint">We'll find the weekly ads at stores near you.</p>
     </div>
-    <details class="more" id="more">
-      <summary>More options</summary>
-      <div class="more-grid">
-        <div class="field"><span>Dinners per week</span>
-          <div class="stepper"><button data-step="dinners" data-d="-1" aria-label="Fewer dinners">−</button><output id="dinnersOut"></output><button data-step="dinners" data-d="1" aria-label="More dinners">+</button></div>
-        </div>
-        <label class="field"><span>Budget ($)</span><input id="budget" type="number" inputmode="decimal" min="0" step="5" placeholder="No limit"></label>
-        <label class="field"><span>Cooking time per night</span>
-          <select id="maxTime">
-            <option value="20">20 min or less</option>
-            <option value="30">30 min or less</option>
-            <option value="45">45 min or less</option>
-            <option value="60">1 hour or less</option>
-            <option value="999">No limit</option>
-          </select>
-        </label>
-        <label class="field"><span>Access code</span><input id="code" autocomplete="off" autocapitalize="off" placeholder="Ask whoever set this up"></label>
-        <div class="field full"><span>Dietary needs</span><div class="chips" id="diets"></div></div>
-        <div class="field full"><span>For items not on sale, buy</span>
-          <div class="chips"><button class="chip" data-pref="store" id="prefStore">Store brand</button><button class="chip" data-pref="name">Name brand</button></div>
-        </div>
-      </div>
-    </details>
+
+    <div class="step" id="step-store" hidden>
+      <h2>Where do you shop?</h2>
+      <div id="storeChoices"></div>
+    </div>
+
+    <div class="step" id="step-code" hidden>
+      <h2>Enter the access code</h2>
+      <input id="code" autocomplete="off" autocapitalize="off" placeholder="Ask whoever set this up" aria-label="Access code">
+      <p class="hint">You only need to enter it once on this phone.</p>
+      <div class="next"><button class="btn" data-next>Show my week</button></div>
+    </div>
   </section>
 
+  <div id="results" hidden>
   <section class="card status" id="status"></section>
   <input type="file" id="adPhotos" accept="image/*" multiple hidden>
 
@@ -181,6 +168,7 @@ details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 1
       <div class="small sans" id="shareFlash"></div>
     </div>
   </section>
+  </div>
 </div>
 
 <script type="module">
@@ -191,30 +179,9 @@ for (const [key, n, u, st, b, c, f, a] of ITEMS) {
   CATALOG[key] = { key, n, u, s: st, b, c, f: f ? f.split(' ') : [], a: (a || '').split('|').filter(Boolean) };
 }
 
-// Pantry staples assumed on hand. Only the ones that matter for diets are listed.
-const PANTRY = {
-  'soy sauce': { f: ['gluten'], swap: 'tamari (gluten-free soy sauce)' },
-  'flour': { f: ['gluten'], swap: 'cornstarch' },
-  'honey': { f: ['honey'], swap: 'maple syrup' },
-  'mayo': { f: ['egg'], swap: 'egg-free mayo' },
-};
-
-const DIETS = {
-  vegetarian: { label: 'Vegetarian', no: ['meat', 'pork', 'fish', 'shellfish'] },
-  vegan: { label: 'Vegan', no: ['meat', 'pork', 'fish', 'shellfish', 'dairy', 'egg', 'honey'] },
-  pescatarian: { label: 'Pescatarian', no: ['meat', 'pork'] },
-  glutenfree: { label: 'Gluten-free', no: ['gluten'] },
-  dairyfree: { label: 'Dairy-free', no: ['dairy'] },
-  nutfree: { label: 'Nut-free', no: ['nuts'] },
-  eggfree: { label: 'Egg-free', no: ['egg'] },
-  nopork: { label: 'No pork', no: ['pork'] },
-  noshellfish: { label: 'No shellfish', no: ['shellfish'] },
-  nosoy: { label: 'Soy-free', no: ['soy'] },
-};
-
 /* ---------- Recipes ----------
    Quantities are for 4 servings, in the catalog item's unit.
-   opt = ingredients that can be left off if they conflict with a diet. */
+   opt = toppings that are fine to leave off. */
 const RECIPES = [];
 function R(id, name, time, active, ings, opt, pantry, steps) {
   RECIPES.push({ id, name, time, active: active || time, ings, opt, pantry, steps });
@@ -491,9 +458,12 @@ const STORES = {
 
 
 /* ---------- State ---------- */
+const PEOPLE = 4;   // every plan feeds four
+const DINNERS = 5;  // and covers five dinners
 const STORE_KEY = 'weeklySpecial.v2';
 const DEFAULT_STATE = {
-  settings: { zip: '', store: 'ShopRite', code: '', people: 4, dinners: 5, budget: '', maxTime: 45, diets: [], pref: 'store' },
+  settings: { zip: '', store: '', code: '', pref: 'store' },
+  step: 0,         // setup question being asked; STEPS.length once setup is done
   flyers: null,    // {zip, list, at}: weekly ads near the ZIP
   ad: [],          // sale items in use: [{key, sale, reg}]
   adSource: null,  // {id, label, link}: where `ad` came from
@@ -524,7 +494,7 @@ function save() {
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const money = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
-const scale = () => state.settings.people / 4;
+const scale = () => PEOPLE / 4;
 const adMap = () => Object.fromEntries(state.ad.map(a => [a.key, a]));
 const storeBrand = () => STORES[state.settings.store] || 'Store brand';
 const hasBrands = it => it.b > it.s;
@@ -555,24 +525,11 @@ function unitPrice(key, ad) {
   const it = CATALOG[key];
   return brandFor(key) === 'name' ? it.b : it.s;
 }
-function forbidden() { return new Set(state.settings.diets.flatMap(d => DIETS[d].no)); }
 
-/* Applies the household's diet and size to a recipe.
-   Returns null if a required ingredient conflicts with the diet. */
+/* Sizes a recipe for the household and prices it with this week's sale items. */
 function evalRecipe(r) {
-  const bad = forbidden(), ad = adMap(), k = scale();
-  const ings = [], skipped = [];
-  for (const [key, q] of Object.entries(r.ings)) {
-    const it = CATALOG[key];
-    if (it.f.some(f => bad.has(f))) {
-      if (r.opt.includes(key)) { skipped.push(key); continue; }
-      return null;
-    }
-    ings.push({ key, qty: q * k, sale: !!ad[key] });
-  }
-  const swaps = r.pantry
-    .filter(p => PANTRY[p] && PANTRY[p].f.some(f => bad.has(f)))
-    .map(p => `Use ${PANTRY[p].swap} instead of ${p}.`);
+  const ad = adMap(), k = scale();
+  const ings = Object.entries(r.ings).map(([key, q]) => ({ key, qty: q * k, sale: !!ad[key] }));
   let cost = 0, saleSave = 0;
   const saleItems = [];
   for (const i of ings) {
@@ -582,27 +539,23 @@ function evalRecipe(r) {
       saleSave += i.qty * Math.max(0, ad[i.key].reg - ad[i.key].sale);
     }
   }
-  const perServing = cost / state.settings.people;
+  const perServing = cost / PEOPLE;
   const score = saleSave + 1.5 * saleItems.length - 0.5 * perServing;
-  return { r, ings, skipped, swaps, cost, perServing, saleSave, saleItems, score };
+  return { r, ings, cost, perServing, saleSave, saleItems, score };
 }
 
 function candidates() {
   return RECIPES.map(evalRecipe)
-    .filter(e => e && e.r.active <= state.settings.maxTime)
     .sort((a, b) => b.score - a.score);
 }
 
 /* Combines the planned recipes into one shopping list with prices. */
 function buildList(planIds) {
-  const ad = adMap(), k = scale(), need = {}, pantry = new Set(), warnings = [];
+  const need = {}, pantry = new Set(), ad = adMap();
   for (const id of planIds) {
     const r = RECIPE_BY_ID[id];
     if (!r) continue;
-    const e = evalRecipe(r);
-    if (!e) warnings.push(r.name);
-    const ings = e ? e.ings : Object.entries(r.ings).map(([key, q]) => ({ key, qty: q * k }));
-    for (const i of ings) need[i.key] = (need[i.key] || 0) + i.qty;
+    for (const i of evalRecipe(r).ings) need[i.key] = (need[i.key] || 0) + i.qty;
     r.pantry.flatMap(p => p === 'salt & pepper' ? ['salt', 'pepper'] : [p]).forEach(p => pantry.add(p));
   }
   let total = 0, regular = 0, saleSave = 0, brandSave = 0;
@@ -619,22 +572,20 @@ function buildList(planIds) {
     return { key, it, q, buy, sale, brand, price, cost, reg };
   });
   items.sort((a, b) => CATS.indexOf(a.it.c) - CATS.indexOf(b.it.c) || a.it.n.localeCompare(b.it.n));
-  return { items, pantry: [...pantry].sort(), total, regular, saleSave, brandSave, warnings };
+  return { items, pantry: [...pantry].sort(), total, regular, saleSave, brandSave };
 }
 
 function autoPlan() {
-  const budget = parseFloat(state.settings.budget) || Infinity;
   let pool = candidates();
   if (state.ad.length) {
     const sale = pool.filter(e => e.saleItems.length);
-    if (sale.length >= state.settings.dinners) pool = sale;
+    if (sale.length >= DINNERS) pool = sale;
   }
   const plan = [], mains = new Set();
   const main = e => Object.keys(e.r.ings)[0];
-  while (plan.length < state.settings.dinners && pool.length) {
+  while (plan.length < DINNERS && pool.length) {
     pool.sort((a, b) => (b.score - (mains.has(main(b)) ? 6 : 0)) - (a.score - (mains.has(main(a)) ? 6 : 0)));
-    const pick = pool.find(e => buildList([...plan, e.r.id]).total <= budget);
-    if (!pick) break;
+    const pick = pool[0];
     plan.push(pick.r.id);
     mains.add(main(pick));
     pool = pool.filter(e => e !== pick);
@@ -690,8 +641,8 @@ async function loadStores() {
     problem = e.message;
   }
   busy = null;
-  renderStoreSelect();
-  loadAd();
+  renderSetup();
+  if (setupDone()) loadAd();
 }
 
 // Uses the current ad for the chosen store, if it isn't the one already in use.
@@ -699,7 +650,7 @@ async function loadAd() {
   const f = currentFlyer();
   if (!f || (state.adSource && state.adSource.id === f.id)) return renderStatus();
   if (!state.settings.code) {
-    problem = 'Enter the access code under More options to load the ad.';
+    problem = 'Tap Change next to Access code above and enter it to load the ad.';
     return renderStatus();
   }
   busy = `Loading the ${f.merchant} ad. This can take up to a minute.`;
@@ -717,7 +668,7 @@ async function loadAd() {
 
 async function readScreenshots(files) {
   if (!state.settings.code) {
-    problem = 'Enter the access code under More options first.';
+    problem = 'Tap Change next to Access code above and enter it first.';
     return renderStatus();
   }
   const found = [];
@@ -778,10 +729,8 @@ function replan() {
 
 // Replaces one dinner with the best recipe not already planned.
 function swap(id) {
-  const budget = parseFloat(state.settings.budget) || Infinity;
-  const others = state.plan.filter(x => x !== id);
   const tried = state.swapped && state.swapped[id] ? state.swapped[id] : [];
-  const next = candidates().find(e => !state.plan.includes(e.r.id) && !tried.includes(e.r.id) && buildList([...others, e.r.id]).total <= budget);
+  const next = candidates().find(e => !state.plan.includes(e.r.id) && !tried.includes(e.r.id));
   if (!next) return;
   state.plan = state.plan.map(x => x === id ? next.r.id : x);
   state.swapped = { [next.r.id]: [...tried, id] };
@@ -791,32 +740,80 @@ function swap(id) {
 }
 
 /* ---------- Rendering ---------- */
-function renderStoreSelect() {
+/* ---------- Setup questions, asked one at a time ---------- */
+const STEPS = ['zip', 'store', 'code'];
+const setupDone = () => state.step >= STEPS.length;
+
+function answerText(step) {
+  const s = state.settings;
+  if (step === 'zip') return ['ZIP', s.zip];
+  if (step === 'store') return ['Store', s.store];
+  return ['Access code', 'Saved'];
+}
+
+function renderStoreChoices() {
   const s = state.settings;
   const f = state.flyers && state.flyers.zip === s.zip ? state.flyers.list : [];
+  if (busy && !f.length) {
+    $('#storeChoices').innerHTML = `<p class="hint"><span class="spinner"></span>Finding stores near ${esc(s.zip)}...</p>`;
+    return;
+  }
+  // Store names differ in spelling between sources ("ALDI" and "Aldi", "Wegman's" and "Wegmans").
+  const norm = n => n.toLowerCase().replace(/[^a-z]/g, '');
   const auto = [...new Set(f.map(x => x.merchant))].sort((a, b) => a.localeCompare(b));
-  const manual = Object.keys(STORES).filter(n => !auto.includes(n));
-  if (!auto.includes(s.store) && !manual.includes(s.store)) manual.unshift(s.store);
-  const opts = list => list.map(n => `<option ${n === s.store ? 'selected' : ''}>${esc(n)}</option>`).join('');
-  $('#store').innerHTML = auto.length
-    ? `<optgroup label="Ad loads automatically">${opts(auto)}</optgroup><optgroup label="Ad from screenshots">${opts(manual)}</optgroup>`
-    : opts(manual);
+  const autoKeys = new Set(auto.map(norm));
+  const manual = Object.keys(STORES).filter(n => n !== 'Other' && !autoKeys.has(norm(n)) && autoKeys.add(norm(n)));
+  const btn = n => `<button class="choice" data-store="${esc(n)}" aria-pressed="${n === s.store}">${esc(n)}</button>`;
+  const others = `<div class="choices">${manual.map(btn).join('')}</div><p class="hint">For these stores you add screenshots of the weekly ad.</p>`;
+  $('#storeChoices').innerHTML = auto.length
+    ? `<p class="hint" style="margin:-4px 0 10px">These stores near you have their weekly ad loaded automatically.</p>
+       <div class="choices">${auto.map(btn).join('')}</div>
+       <details class="others" ${manual.includes(s.store) ? 'open' : ''}><summary>My store isn't listed</summary>${others}</details>`
+    : others;
 }
 
 function renderSetup() {
   const s = state.settings;
+  const done = setupDone();
+  $('#answers').innerHTML = STEPS.slice(0, Math.min(state.step, STEPS.length)).map((step, i) => {
+    const [label, value] = answerText(step);
+    return `<li><span><span class="lbl">${label}</span> ${esc(value)}</span><button class="link" data-goto="${i}">Change</button></li>`;
+  }).join('');
+  STEPS.forEach((step, i) => { $(`#step-${step}`).hidden = i !== state.step; });
+  $('#results').hidden = !done;
   $('#zip').value = s.zip;
   $('#code').value = s.code;
-  $('#budget').value = s.budget;
-  $('#maxTime').value = String(s.maxTime);
-  $('#peopleOut').textContent = s.people;
-  $('#dinnersOut').textContent = s.dinners;
-  $('#diets').innerHTML = Object.entries(DIETS).map(([k, d]) =>
-    `<button class="chip" data-diet="${k}" aria-pressed="${s.diets.includes(k)}">${d.label}</button>`).join('');
-  document.querySelectorAll('[data-pref]').forEach(b => b.setAttribute('aria-pressed', b.dataset.pref === s.pref));
-  $('#prefStore').textContent = `Store brand (${storeBrand()})`;
-  renderStoreSelect();
-  if (!s.code) $('#more').open = true;
+  if (STEPS[state.step] === 'store') renderStoreChoices();
+}
+
+function focusStep() {
+  const el = document.querySelector(`#step-${STEPS[state.step]} input`);
+  if (el) el.focus();
+}
+
+// Moves to the next question, skipping the access code once it's saved.
+function advance() {
+  state.step++;
+  if (STEPS[state.step] === 'code' && state.settings.code) state.step++;
+  save();
+  if (setupDone()) {
+    state.plan = autoPlan();
+    state.checked = {};
+    save();
+    renderSetup();
+    render();
+    loadAd();
+    return;
+  }
+  renderSetup();
+  focusStep();
+}
+
+function goTo(i) {
+  state.step = i;
+  save();
+  renderSetup();
+  focusStep();
 }
 
 function renderStatus() {
@@ -858,17 +855,14 @@ function dinnerCard(id) {
   const open = !!state.open[id];
   const ad = adMap();
   const time = r.time > r.active ? `${r.active} min hands-on, ${r.time >= 120 ? Math.round(r.time / 60 * 2) / 2 + ' hr' : r.time + ' min'} total` : `${r.time} min`;
-  if (!e) return `<li class="card dinner"><h3>${esc(r.name)}</h3><p class="small" style="color:var(--accent)">Doesn't fit your dietary needs anymore.</p><button class="btn sm plain" data-swap="${id}">Swap</button></li>`;
   const uses = e.saleItems.length
     ? `<p class="uses"><span class="sale-tag">On sale</span> ${e.saleItems.map(k => esc(CATALOG[k].n.replace(/\s*\(.*\)/, ''))).join(', ')}</p>`
     : '';
   let body = '';
   if (open) {
-    const notes = [...e.skipped.map(k => `Leave off the ${CATALOG[k].n.replace(/\s*\(.*\)/, '').toLowerCase()} to fit your diet.`), ...e.swaps];
     body = `<div class="body">
       <ul>${e.ings.map(i => `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` <span class="sale-tag">Sale ${money(ad[i.key].sale)}${perUnit(CATALOG[i.key].u)}</span>` : ''}</li>`).join('')}</ul>
       <div class="small muted">From the pantry: ${esc(r.pantry.join(', '))}</div>
-      ${notes.length ? `<ul class="small">${notes.map(n => `<li class="tip">${esc(n)}</li>`).join('')}</ul>` : ''}
       <ol>${r.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
       ${SOURCES[id] ? `<a class="src" href="${esc(SOURCES[id].url)}" target="_blank" rel="noopener">Full recipe at ${esc(SOURCES[id].site)} ↗</a>` : ''}
     </div>`;
@@ -888,22 +882,16 @@ function dinnerCard(id) {
 function renderDinners() {
   $('#dinners').innerHTML = state.plan.length
     ? state.plan.filter(id => RECIPE_BY_ID[id]).map(dinnerCard).join('')
-    : `<li class="empty">No dinners fit your settings. Try allowing more cooking time or a bigger budget under More options.</li>`;
+    : `<li class="empty">No dinners could be planned. Tap Start over to try again.</li>`;
 }
 
 function renderList() {
-  const s = state.settings;
   const L = buildList(state.plan);
   if (!state.plan.length) {
     $('#list').innerHTML = '<p class="empty">Your list appears here once dinners are planned.</p>';
     return;
   }
-  const budget = parseFloat(s.budget);
   const saved = L.regular - L.total;
-  const meter = budget > 0
-    ? `<div class="meter ${L.total > budget ? 'over' : ''}"><div style="width:${Math.min(100, L.total / budget * 100)}%"></div></div>
-       <div class="small sans muted">${money(L.total)} of your ${money(budget)} budget</div>`
-    : '';
   let html = '', cat = '';
   for (const i of L.items) {
     if (i.it.c !== cat) {
@@ -929,9 +917,8 @@ function renderList() {
     <div class="totals">
       <div><div class="num">${money(L.total)}</div><div class="lbl">Total</div></div>
       <div class="save"><div class="num">${money(saved)}</div><div class="lbl">You save</div></div>
-      <div><div class="num">${money(L.total / (state.plan.length * s.people))}</div><div class="lbl">Per serving</div></div>
+      <div><div class="num">${money(L.total / (state.plan.length * PEOPLE))}</div><div class="lbl">Per serving</div></div>
     </div>
-    ${meter}
     ${html}
     <div class="cat">Check the pantry for</div>
     <p class="small" style="margin:0">${esc(L.pantry.join(', '))}</p>`;
@@ -964,19 +951,16 @@ function setSetting(k, v, then) {
 }
 
 $('#zip').addEventListener('input', e => {
-  setSetting('zip', e.target.value.trim());
-  if (/^\d{5}$/.test(state.settings.zip)) loadStores(); else renderStatus();
+  const zip = e.target.value.replace(/\D/g, '').slice(0, 5);
+  if (zip === state.settings.zip) return;
+  setSetting('zip', zip);
+  if (zip.length === 5) {
+    state.flyers = null;
+    loadStores();
+    advance();
+  }
 });
-$('#store').addEventListener('change', e => {
-  setSetting('store', e.target.value);
-  $('#prefStore').textContent = `Store brand (${storeBrand()})`;
-  state.ad = []; state.adSource = null; state.plan = autoPlan(); save();
-  render();
-  loadAd();
-});
-$('#code').addEventListener('change', e => { setSetting('code', e.target.value.trim()); loadAd(); });
-$('#budget').addEventListener('change', e => setSetting('budget', e.target.value, replan));
-$('#maxTime').addEventListener('change', e => setSetting('maxTime', parseInt(e.target.value, 10), replan));
+$('#code').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); document.querySelector('#step-code [data-next]').click(); } });
 $('#adPhotos').addEventListener('change', e => {
   const files = [...e.target.files];
   e.target.value = '';
@@ -987,24 +971,22 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button, input');
   if (!t) return;
   const d = t.dataset;
-  if (d.step) {
-    const lim = { people: [1, 12], dinners: [1, 7] }[d.step];
-    const v = Math.min(lim[1], Math.max(lim[0], state.settings[d.step] + parseInt(d.d, 10)));
-    $(`#${d.step}Out`).textContent = v;
-    return setSetting(d.step, v, replan);
+  if (d.store) {
+    if (d.store !== state.settings.store) {
+      state.ad = []; state.adSource = null; problem = '';
+    }
+    setSetting('store', d.store);
+    return advance();
   }
-  if (d.diet) {
-    const s = state.settings;
-    s.diets = s.diets.includes(d.diet) ? s.diets.filter(x => x !== d.diet) : [...s.diets, d.diet];
-    t.setAttribute('aria-pressed', s.diets.includes(d.diet));
-    return replan();
-  }
-  if (d.pref) {
-    state.settings.pref = d.pref;
-    state.brand = {};
-    document.querySelectorAll('[data-pref]').forEach(b => b.setAttribute('aria-pressed', b.dataset.pref === d.pref));
-    save();
-    return renderList();
+  if (d.goto) return goTo(parseInt(d.goto, 10));
+  if (t.dataset.next !== undefined) {
+    if (STEPS[state.step] === 'code') {
+      const code = $('#code').value.trim();
+      if (!code) return $('#code').focus();
+      setSetting('code', code);
+      problem = '';
+    }
+    return advance();
   }
   if (d.open) { state.open[d.open] = !state.open[d.open]; save(); return renderDinners(); }
   if (d.swap) return swap(d.swap);
@@ -1025,10 +1007,13 @@ document.addEventListener('click', e => {
 });
 
 renderSetup();
-if (!state.plan.length) state.plan = autoPlan();
-render();
+if (setupDone()) {
+  if (!state.plan.length) state.plan = autoPlan();
+  render();
+}
 const stale = !state.flyers || state.flyers.zip !== state.settings.zip || Date.now() - state.flyers.at > 6 * 3600e3;
-if (/^\d{5}$/.test(state.settings.zip)) { if (stale) loadStores(); else loadAd(); }
+if (/^\d{5}$/.test(state.settings.zip)) { if (stale) loadStores(); else if (setupDone()) loadAd(); }
+focusStep();
 </script>
 </body>
 </html>
