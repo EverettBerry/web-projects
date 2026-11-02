@@ -28,7 +28,7 @@
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root {
     --paper: #1a1815;
     --card: #24211c;
     --ink: #efe8dc;
@@ -39,397 +39,148 @@
     --good: #8cc79a;
     --good-bg: #22311f;
     --chip: #2e2a23;
+    color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.5;
-}
-.wrap { max-width: 980px; margin: 0 auto; padding-block: 0 110px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-
-/* Masthead */
-.masthead { text-align: center; padding-top: max(14px, env(safe-area-inset-top)); }
-.dateline {
-  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  font-family: var(--sans); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--muted); border-bottom: 1px solid var(--ink); padding-bottom: 6px;
-}
-.masthead h1 {
-  font-family: var(--display); font-weight: 900; font-size: clamp(2.3rem, 9vw, 4.4rem);
-  line-height: 1; margin: 14px 0 8px; letter-spacing: -.01em;
-}
-.tagline { font-style: italic; color: var(--muted); margin: 0 auto 10px; max-width: 34em; }
-.rule-double { border: 0; border-top: 4px double var(--ink); margin: 0 0 18px; }
-
-/* Tabs */
-.tabs {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  background: var(--card); border-top: 1px solid var(--rule);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-.tabs button {
-  appearance: none; border: 0; background: none; color: var(--muted);
-  font-family: var(--sans); font-size: 12px; font-weight: 600; padding: 10px 4px 12px; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 3px; position: relative;
-}
-.tabs button .ico { font-size: 20px; line-height: 1; }
-.tabs button[aria-selected="true"] { color: var(--accent); }
-.tabs .badge {
-  position: absolute; top: 5px; left: 50%; margin-left: 8px;
-  background: var(--accent); color: var(--accent-ink); border-radius: 999px;
-  font-size: 10px; min-width: 18px; height: 18px; line-height: 18px; padding: 0 5px;
-}
-@media (min-width: 760px) {
-  .tabs {
-    position: sticky; top: 0; bottom: auto; border-top: 0; border-bottom: 1px solid var(--rule);
-    background: var(--paper); margin: 0 -16px 20px; padding: 0 16px;
-    grid-template-columns: repeat(4, auto); justify-content: center; gap: 8px;
-  }
-  .tabs button { flex-direction: row; font-size: 14px; padding: 12px 16px; gap: 8px; }
-  .tabs button .ico { font-size: 16px; }
-  .tabs button[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--accent); }
-  .tabs .badge { position: static; margin: 0; }
-  .wrap { padding-bottom: 48px; }
-}
-
-/* Generic */
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.5; }
 [hidden] { display: none !important; }
-h2 { font-family: var(--display); font-size: 1.7rem; line-height: 1.15; margin: 4px 0 6px; }
-h3 { font-family: var(--display); font-size: 1.2rem; line-height: 1.2; margin: 0 0 6px; }
-.lede { color: var(--muted); margin: 0 0 18px; }
-.card {
-  background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
-  padding: 16px; margin-bottom: 16px;
+.wrap {
+  max-width: 720px; margin: 0 auto;
+  padding-block: max(12px, env(safe-area-inset-top)) max(40px, env(safe-area-inset-bottom));
+  padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right));
 }
-.kicker {
-  font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
-}
+header { text-align: center; border-bottom: 4px double var(--ink); padding-bottom: 8px; margin-bottom: 16px; }
+.dateline { font-family: var(--sans); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 900; font-size: clamp(2rem, 9vw, 3.2rem); line-height: 1; margin: 6px 0 4px; }
+.tagline { font-style: italic; color: var(--muted); margin: 0; font-size: 15px; }
+h2 { font-family: var(--display); font-size: 1.35rem; line-height: 1.2; margin: 0 0 8px; }
+h3 { font-family: var(--display); font-size: 1.1rem; line-height: 1.25; margin: 0; }
+section { margin-bottom: 18px; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; }
 .muted { color: var(--muted); }
 .small { font-size: 14px; }
 .sans { font-family: var(--sans); }
-.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.spread { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.grid2 { display: grid; gap: 14px; grid-template-columns: 1fr; }
-@media (min-width: 600px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.spread { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-label.field { display: block; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--muted); }
-label.field > span { display: block; margin-bottom: 5px; }
-input, select, textarea {
-  font: inherit; font-family: var(--sans); font-size: 16px; color: var(--ink);
-  background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
-  padding: 10px 12px; width: 100%;
-}
-textarea { min-height: 120px; resize: vertical; }
-input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-
-.btn {
-  appearance: none; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
-  font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 10px 16px; border-radius: 6px;
-  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
-}
-.btn.ghost { background: transparent; color: var(--accent); }
-.btn.plain { background: transparent; color: var(--ink); border-color: var(--rule); }
-.btn.sm { font-size: 13px; padding: 6px 10px; }
-.btn.added { background: var(--good); border-color: var(--good); color: var(--card); }
-.btn[disabled] { opacity: .5; cursor: default; }
-
-.stepper { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; width: max-content; background: var(--paper); }
-.stepper button { appearance: none; border: 0; background: none; color: var(--ink); font-size: 20px; width: 44px; height: 42px; cursor: pointer; }
-.stepper output { min-width: 40px; text-align: center; font-family: var(--sans); font-weight: 700; font-size: 17px; }
-
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  appearance: none; border: 1px solid var(--rule); background: var(--chip); color: var(--ink);
-  font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 999px; cursor: pointer;
-}
+.setup { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 10px; align-items: end; }
+@media (max-width: 420px) { .setup { grid-template-columns: 1fr 1fr; } .setup .people { grid-column: 1 / -1; } }
+label.field, .field { display: block; font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--muted); }
+.field > span { display: block; margin-bottom: 4px; }
+input, select { font-family: var(--sans); font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 9px 10px; width: 100%; min-width: 0; }
+input:focus, select:focus, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.stepper { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); width: max-content; }
+.stepper button { appearance: none; border: 0; background: none; color: var(--ink); font-size: 20px; width: 40px; height: 40px; cursor: pointer; }
+.stepper output { min-width: 28px; text-align: center; font-family: var(--sans); font-weight: 700; }
+details.more { margin-top: 10px; border-top: 1px dotted var(--rule); padding-top: 8px; }
+details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--accent); }
+.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.more-grid .full { grid-column: 1 / -1; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { appearance: none; border: 1px solid var(--rule); background: var(--chip); color: var(--ink); font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
 .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
-.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
-.seg button {
-  appearance: none; border: 0; background: var(--paper); color: var(--muted);
-  font-family: var(--sans); font-size: 12px; padding: 5px 8px; cursor: pointer;
-}
-.seg button + button { border-left: 1px solid var(--rule); }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.btn { appearance: none; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.btn.plain { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn.sm { font-size: 13px; padding: 5px 10px; }
+.btn[disabled] { opacity: .5; cursor: default; }
 
-.sale-tag {
-  display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
-  padding: 0 4px; line-height: 16px; vertical-align: 2px;
-}
-.save { color: var(--good); font-weight: 600; }
-.strike { text-decoration: line-through; color: var(--muted); }
+.status { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-family: var(--sans); font-size: 14px; }
+.status strong { font-size: 15px; }
+.status a { color: var(--accent); }
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--rule); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: -2px; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
 
-/* Ad list */
-.ad-list { list-style: none; margin: 0; padding: 0; }
-.ad-list li {
-  display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center;
-  padding: 10px 0; border-bottom: 1px dotted var(--rule);
-}
-.ad-list li:last-child { border-bottom: 0; }
-.ad-list .name { font-weight: 600; }
-.ad-list .prices { font-family: var(--sans); font-size: 14px; text-align: right; white-space: nowrap; }
-.x {
-  appearance: none; border: 0; background: none; color: var(--muted); font-size: 22px; line-height: 1;
-  width: 36px; height: 36px; cursor: pointer; border-radius: 6px;
-}
-.x:hover { background: var(--chip); }
-.addrow { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
-.addrow .full { grid-column: 1 / -1; }
-@media (min-width: 640px) { .addrow { grid-template-columns: 2fr 1fr 1fr auto; align-items: end; } .addrow .full { grid-column: auto; } }
-.note { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-top: 8px; }
-.flash { font-family: var(--sans); font-size: 14px; margin-top: 10px; }
-.found { list-style: none; margin: 8px 0 0; padding: 0; }
-.found li { border-bottom: 1px dotted var(--rule); }
-.found li:last-child { border-bottom: 0; }
-.found label { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 10px 0; cursor: pointer; }
-.found input[type=checkbox] { width: 22px; height: 22px; margin: 0; accent-color: var(--good); }
-.found .name { font-weight: 600; }
-.found .prices { font-family: var(--sans); font-size: 14px; text-align: right; white-space: nowrap; }
-.found li.unused { color: var(--muted); }
-.found li.added .name::after { content: " ✓ added"; font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--good); }
-.found-bar { position: sticky; bottom: 76px; background: var(--card); border-top: 1px solid var(--rule); padding: 10px 0 12px; margin-top: 8px; }
-@media (min-width: 760px) { .found-bar { bottom: 0; } }
-details > summary { cursor: pointer; font-family: var(--sans); font-weight: 600; font-size: 15px; }
+.dinners { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.dinner { padding: 12px 14px; }
+.dinner .meta { font-family: var(--sans); font-size: 13px; color: var(--muted); margin: 2px 0 6px; }
+.dinner .uses { font-size: 14px; margin: 0 0 8px; }
+.dinner .body { border-top: 1px dotted var(--rule); margin-top: 10px; padding-top: 8px; font-size: 15px; }
+.dinner .body ul, .dinner .body ol { padding-left: 20px; margin: 4px 0 10px; }
+.sale-tag { display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px; padding: 0 4px; line-height: 16px; vertical-align: 1px; }
+.tip { color: var(--good); }
+.src { font-family: var(--sans); font-size: 13px; color: var(--accent); }
 
-/* Recipes */
-.recipes { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
-.recipe { display: flex; flex-direction: column; margin: 0; }
-.recipe .meta { font-family: var(--sans); font-size: 13px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-.recipe .uses { font-size: 15px; margin: 0 0 10px; }
-.recipe .src { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--accent); margin: -4px 0 10px; display: inline-block; }
-.recipe .foot { margin-top: auto; display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 8px; border-top: 1px dotted var(--rule); }
-.recipe .body { border-top: 1px dotted var(--rule); margin-top: 10px; padding-top: 10px; font-size: 15px; }
-.recipe .body ul, .recipe .body ol { padding-left: 20px; margin: 6px 0 12px; }
-.recipe .body li { margin-bottom: 4px; }
-.pill { font-family: var(--sans); font-size: 12px; font-weight: 700; background: var(--good-bg); color: var(--good); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
-.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.empty { text-align: center; padding: 28px 16px; color: var(--muted); }
-
-/* Shopping list */
-.totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
-.totals .num { font-family: var(--display); font-size: 1.7rem; font-weight: 900; line-height: 1.1; }
+.totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 10px; }
+.totals .num { font-family: var(--display); font-size: 1.5rem; font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .totals .lbl { font-family: var(--sans); font-size: 12px; color: var(--muted); }
-.totals .big .num { color: var(--good); }
-.meter { height: 10px; background: var(--chip); border-radius: 999px; overflow: hidden; margin: 14px 0 6px; }
-.meter > div { height: 100%; background: var(--good); border-radius: 999px; }
+.totals .save .num { color: var(--good); }
+.meter { height: 8px; background: var(--chip); border-radius: 999px; overflow: hidden; margin: 4px 0; }
+.meter > div { height: 100%; background: var(--good); }
 .meter.over > div { background: var(--accent); }
-.plan-list { list-style: none; margin: 0; padding: 0; }
-.plan-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
-.plan-list li:last-child { border-bottom: 0; }
-.cat { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 16px 0 4px; }
-.cat:first-child { margin-top: 0; }
+.cat { font-family: var(--sans); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 14px 0 2px; }
 .shop { list-style: none; margin: 0; padding: 0; }
-.shop li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 9px 0; border-bottom: 1px dotted var(--rule); }
+.shop li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
 .shop li:last-child { border-bottom: 0; }
-.shop input[type=checkbox] { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--good); }
-.shop .what { font-weight: 600; }
-.shop .sub { font-family: var(--sans); font-size: 12px; color: var(--muted); margin-top: 3px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.shop .cost { font-family: var(--sans); font-size: 15px; font-weight: 700; text-align: right; white-space: nowrap; }
+.shop input[type=checkbox] { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--good); }
+.shop .what { font-size: 15px; }
+.shop .sub { font-family: var(--sans); font-size: 12px; color: var(--muted); }
+.shop .sub button { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
+.shop .cost { font-family: var(--sans); font-size: 14px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .shop li.done .what { text-decoration: line-through; color: var(--muted); }
-.tip { color: var(--good); font-weight: 600; }
-
-#printColumn { display: none; }
-@media print {
-  body { background: #fff; color: #000; font-size: 11pt; }
-  .tabs, .wrap > section, .no-print { display: none !important; }
-  #printColumn { display: block; }
-  .pc-cols { column-count: 2; column-gap: 28px; column-rule: 1px solid #999; }
-  .pc-recipe { break-inside: avoid; margin-bottom: 16px; }
-  .pc-recipe h3 { font-size: 14pt; }
-  .pc-recipe ul, .pc-recipe ol { padding-left: 18px; margin: 4px 0 8px; }
-}
+.strike { text-decoration: line-through; }
+.empty { color: var(--muted); font-style: italic; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="masthead">
-    <div class="dateline"><span id="weekOf"></span><span id="storeLine"></span></div>
+  <header>
+    <div class="dateline" id="dateline"></div>
     <h1>The Weekly Special</h1>
-    <p class="tagline">Supper ideas built from what's on sale this week, in the tradition of Grandma's newspaper recipe column.</p>
-    <hr class="rule-double">
+    <p class="tagline">This week's dinners, built from what's on sale.</p>
   </header>
 
-  <nav class="tabs no-print" role="tablist">
-    <button role="tab" data-tab="kitchen"><span class="ico">🏡</span>Your Kitchen</button>
-    <button role="tab" data-tab="ad"><span class="ico">🏷️</span>Sale Ad<span class="badge" id="adBadge" hidden></span></button>
-    <button role="tab" data-tab="recipes"><span class="ico">📖</span>Recipes</button>
-    <button role="tab" data-tab="list"><span class="ico">🧾</span>Shopping List<span class="badge" id="planBadge" hidden></span></button>
-  </nav>
-
-  <!-- 1. Kitchen -->
-  <section id="tab-kitchen">
-    <div class="kicker">Step 1</div>
-    <h2>Tell us about your kitchen</h2>
-    <p class="lede">These settings are saved on this device, so you only fill them out once.</p>
-
-    <div class="card grid2">
-      <label class="field"><span>ZIP code</span>
-        <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="e.g. 07030">
-      </label>
-      <label class="field"><span>Store</span>
-        <select id="store"></select>
-      </label>
-      <div class="note" id="storeNote" style="grid-column:1/-1;margin-top:0"></div>
-      <label class="field"><span>Access code</span>
-        <input id="code" autocomplete="off" autocapitalize="off" placeholder="Ask whoever set up this site">
-      </label>
-    </div>
-
-    <div class="card grid2">
-      <div class="field"><span class="field" style="margin-bottom:5px">People to feed</span>
-        <div class="stepper"><button data-step="people" data-d="-1" aria-label="Fewer people">−</button><output id="people"></output><button data-step="people" data-d="1" aria-label="More people">+</button></div>
+  <section class="card">
+    <div class="setup">
+      <label class="field"><span>ZIP code</span><input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="07030"></label>
+      <label class="field"><span>Store</span><select id="store"></select></label>
+      <div class="field people"><span>People</span>
+        <div class="stepper"><button data-step="people" data-d="-1" aria-label="Fewer people">−</button><output id="peopleOut"></output><button data-step="people" data-d="1" aria-label="More people">+</button></div>
       </div>
-      <div class="field"><span class="field" style="margin-bottom:5px">Dinners to plan this week</span>
-        <div class="stepper"><button data-step="dinners" data-d="-1" aria-label="Fewer dinners">−</button><output id="dinners"></output><button data-step="dinners" data-d="1" aria-label="More dinners">+</button></div>
-      </div>
-      <label class="field"><span>Weekly grocery budget for these dinners ($)</span>
-        <input id="budget" type="number" inputmode="decimal" min="0" step="5" placeholder="No limit">
-      </label>
-      <label class="field"><span>Hands-on cooking time per night</span>
-        <select id="maxTime">
-          <option value="20">20 minutes or less</option>
-          <option value="30">30 minutes or less</option>
-          <option value="45">45 minutes or less</option>
-          <option value="60">1 hour or less</option>
-          <option value="999">No limit</option>
-        </select>
-      </label>
     </div>
-
-    <div class="card">
-      <div class="field" style="margin-bottom:8px"><span class="field">Dietary needs</span></div>
-      <div class="chips" id="diets"></div>
-      <p class="note">Recipes that can't be made to fit are hidden. If only a topping conflicts (say, sour cream on tacos), the recipe stays and tells you to leave it off.</p>
-    </div>
-
-    <div class="card">
-      <div class="field" style="margin-bottom:8px"><span class="field">For items that aren't on sale, buy</span></div>
-      <div class="chips" id="brandPref">
-        <button class="chip" data-pref="store">Store brand (cheaper)</button>
-        <button class="chip" data-pref="name">Name brand</button>
-      </div>
-      <p class="note">You can still switch any single item on the shopping list.</p>
-    </div>
-
-    <button class="btn" data-goto="ad">Next: this week's ad →</button>
-  </section>
-
-  <!-- 2. Ad -->
-  <section id="tab-ad" hidden>
-    <div class="kicker">Step 2</div>
-    <h2>What's on sale this week?</h2>
-    <p class="lede">Pull up the weekly ad and add the items on sale. Recipes will be built around them.</p>
-
-    <div class="card" id="autoCard" hidden>
-      <h3 id="autoTitle">This week's ad</h3>
-      <p class="small muted" style="margin-top:0">Load the ad and pick the sale items you want. No screenshots needed.</p>
-      <ul class="ad-list" id="flyerList"></ul>
-      <div class="flash" id="autoFlash"></div>
-    </div>
-
-    <div class="card spread" id="findCard">
-      <div>
-        <h3 id="findAdTitle">Find the weekly ad</h3>
-        <div class="small muted" id="findAdNote"></div>
-      </div>
-      <a class="btn ghost" id="findAdLink" target="_blank" rel="noopener">Open weekly ad ↗</a>
-    </div>
-
-    <div class="card" id="readCard">
-      <h3 id="readTitle">Read the ad for me</h3>
-      <p class="small muted" style="margin-top:0">Take screenshots of the weekly ad and add them here. Claude lists every sale item, and you tick the ones you want. You can also paste the ad's text instead.</p>
-      <div class="row">
-        <label class="btn" for="adPhotos" id="photoLabel">Add ad screenshots</label>
-        <input type="file" id="adPhotos" accept="image/*" multiple hidden>
-        <button class="btn ghost" id="readTextBtn">Read pasted text</button>
-        <button class="btn plain" id="stopReadBtn" hidden>Stop</button>
-      </div>
-      <textarea id="adRaw" placeholder="Or paste the ad's text here" style="margin-top:10px;min-height:70px"></textarea>
-      <div class="flash" id="readFlash"></div>
-    </div>
-
-    <div class="card" id="foundCard" hidden>
-      <div id="foundBox"></div>
-    </div>
-
-    <div class="card">
-      <h3>Add a sale item</h3>
-      <div class="addrow">
-        <label class="field full"><span>Item</span>
-          <input id="addName" list="catalogList" placeholder="Start typing, e.g. chicken thighs" autocomplete="off">
-          <datalist id="catalogList"></datalist>
-        </label>
-        <label class="field"><span id="saleLbl">Sale price</span>
-          <input id="addSale" type="number" inputmode="decimal" min="0" step="0.01" placeholder="1.99">
-        </label>
-        <label class="field"><span id="regLbl">Regular price</span>
-          <input id="addReg" type="number" inputmode="decimal" min="0" step="0.01" placeholder="optional">
-        </label>
-        <button class="btn full" id="addBtn" style="justify-content:center">Add</button>
-      </div>
-      <div class="note" id="addHint">Enter the price per unit shown (per lb, each, per can...). If the ad says "2 for $5", enter 2.50.</div>
-      <div class="flash" id="addFlash"></div>
-    </div>
-
-    <div class="card" id="pasteCard" hidden>
-      <details id="pasteBox">
-        <summary>Paste or type a whole list at once</summary>
-        <p class="small muted">One item per line. Prices can look like <code>1.99/lb</code>, <code>2 for $5</code>, or <code>99¢</code>; add <code>reg 3.49</code> for the regular price.</p>
-        <textarea id="pasteText" placeholder="Chicken thighs $1.49/lb reg $2.99&#10;Bell peppers 2 for $1&#10;Ground beef 3.99 lb&#10;Avocados 69¢"></textarea>
-        <div class="row" style="margin-top:10px">
-          <button class="btn" id="pasteBtn">Add these items</button>
+    <details class="more" id="more">
+      <summary>More options</summary>
+      <div class="more-grid">
+        <div class="field"><span>Dinners per week</span>
+          <div class="stepper"><button data-step="dinners" data-d="-1" aria-label="Fewer dinners">−</button><output id="dinnersOut"></output><button data-step="dinners" data-d="1" aria-label="More dinners">+</button></div>
         </div>
-        <div class="flash" id="pasteFlash"></div>
-      </details>
-    </div>
-
-    <div class="card">
-      <div class="spread" style="margin-bottom:6px">
-        <h3 style="margin:0">On sale this week</h3>
-        <div class="row">
-          <button class="btn sm plain" id="sampleBtn">Load a sample ad</button>
-          <button class="btn sm plain" id="clearAdBtn">Clear</button>
+        <label class="field"><span>Budget ($)</span><input id="budget" type="number" inputmode="decimal" min="0" step="5" placeholder="No limit"></label>
+        <label class="field"><span>Cooking time per night</span>
+          <select id="maxTime">
+            <option value="20">20 min or less</option>
+            <option value="30">30 min or less</option>
+            <option value="45">45 min or less</option>
+            <option value="60">1 hour or less</option>
+            <option value="999">No limit</option>
+          </select>
+        </label>
+        <label class="field"><span>Access code</span><input id="code" autocomplete="off" autocapitalize="off" placeholder="Ask whoever set this up"></label>
+        <div class="field full"><span>Dietary needs</span><div class="chips" id="diets"></div></div>
+        <div class="field full"><span>For items not on sale, buy</span>
+          <div class="chips"><button class="chip" data-pref="store" id="prefStore">Store brand</button><button class="chip" data-pref="name">Name brand</button></div>
         </div>
       </div>
-      <ul class="ad-list" id="adList"></ul>
+    </details>
+  </section>
+
+  <section class="card status" id="status"></section>
+  <input type="file" id="adPhotos" accept="image/*" multiple hidden>
+
+  <section id="dinnersSection">
+    <div class="spread"><h2>This week's dinners</h2><button class="btn sm plain" id="replanBtn">Start over</button></div>
+    <ul class="dinners" id="dinners"></ul>
+  </section>
+
+  <section id="listSection">
+    <div class="card">
+      <div class="spread" style="margin-bottom:8px"><h2 style="margin:0">Shopping list</h2><button class="btn sm" id="shareBtn">Share</button></div>
+      <div id="list"></div>
+      <div class="small sans" id="shareFlash"></div>
     </div>
-
-    <button class="btn" data-goto="recipes">See recipes →</button>
   </section>
-
-  <!-- 3. Recipes -->
-  <section id="tab-recipes" hidden>
-    <div class="kicker">Step 3</div>
-    <h2>This week's recipes</h2>
-    <p class="lede" id="recipesLede"></p>
-    <div class="flash" id="planFlash" style="color:var(--accent)"></div>
-    <div class="toolbar">
-      <button class="btn" id="autoPlanBtn">✨ Plan my week for me</button>
-      <div class="chips">
-        <button class="chip" id="saleOnlyChip">Only recipes using sale items</button>
-      </div>
-    </div>
-    <div class="recipes" id="recipeGrid"></div>
-  </section>
-
-  <!-- 4. List -->
-  <section id="tab-list" hidden>
-    <div class="kicker">Step 4</div>
-    <h2>One-stop shopping list</h2>
-    <p class="lede" id="listLede"></p>
-    <div id="listBody"></div>
-  </section>
-
-  <div id="printColumn"></div>
 </div>
 
 <script type="module">
@@ -738,29 +489,22 @@ const STORES = {
   'Other': 'Store brand',
 };
 
-const SAMPLE_AD = [
-  ['chicken_thigh', 1.49, 2.99], ['ground_beef', 3.99, 5.99], ['bell_pepper', .50, 1.29],
-  ['broccoli', 1.29, 2.49], ['pasta', .88, 1.79], ['cheddar', 1.99, 3.99], ['avocado', .69, 1.50],
-  ['sweet_potato', .79, 1.49], ['black_beans', .69, 1.29], ['salmon', 7.99, 11.99],
-  ['eggs', 1.99, 3.99], ['marinara', 1.50, 3.49],
-];
 
 /* ---------- State ---------- */
-const STORE_KEY = 'weeklySpecial.v1';
+const STORE_KEY = 'weeklySpecial.v2';
 const DEFAULT_STATE = {
-  settings: { store: 'ShopRite', zip: '', code: '', people: 4, dinners: 5, budget: '', maxTime: 45, diets: [], pref: 'store' },
-  ad: [],          // [{key, sale, reg}]
-  found: [],       // items read from the ad: [{name, deal, key, sale, regular, sel}]
-  flyers: null,    // {zip, list, at}: grocery circulars near the ZIP
-  loaded: {},      // flyer id -> true once its items are in `found`
+  settings: { zip: '', store: 'ShopRite', code: '', people: 4, dinners: 5, budget: '', maxTime: 45, diets: [], pref: 'store' },
+  flyers: null,    // {zip, list, at}: weekly ads near the ZIP
+  ad: [],          // sale items in use: [{key, sale, reg}]
+  adSource: null,  // {id, label, link}: where `ad` came from
   plan: [],        // recipe ids
   brand: {},       // key -> 'store' | 'name'
   checked: {},     // key -> true
-  saleOnly: true,
   open: {},        // recipe id -> expanded
-  tab: 'kitchen',
 };
 let state = load();
+let busy = null;   // what's loading right now, shown in the status card
+let problem = '';  // last error, shown in the status card
 
 function load() {
   try {
@@ -881,7 +625,7 @@ function buildList(planIds) {
 function autoPlan() {
   const budget = parseFloat(state.settings.budget) || Infinity;
   let pool = candidates();
-  if (state.ad.length && state.saleOnly) {
+  if (state.ad.length) {
     const sale = pool.filter(e => e.saleItems.length);
     if (sale.length >= state.settings.dinners) pool = sale;
   }
@@ -898,32 +642,7 @@ function autoPlan() {
   return plan;
 }
 
-/* ---------- Ad text parsing ---------- */
-const MATCHERS = Object.values(CATALOG)
-  .flatMap(it => [it.n.toLowerCase().replace(/\s*\(.*\)/, ''), ...it.a].map(t => ({ t, key: it.key })))
-  .sort((a, b) => b.t.length - a.t.length);
 
-function matchItem(text) {
-  const s = ' ' + text.toLowerCase().replace(/[^a-z0-9¢$.\s]/g, ' ').replace(/\s+/g, ' ') + ' ';
-  const m = MATCHERS.find(m => s.includes(' ' + m.t + ' ') || s.includes(' ' + m.t + 's '));
-  return m ? m.key : null;
-}
-function parsePrices(line) {
-  let reg = null;
-  let rest = line.replace(/\b(?:reg(?:ular|\.)?|was)\s*:?\s*\$?\s*(\d+(?:\.\d{1,2})?)/i, (_, p) => { reg = parseFloat(p); return ' '; });
-  let sale = null;
-  const multi = rest.match(/(\d+)\s*(?:for|\/)\s*\$\s*(\d+(?:\.\d{1,2})?)/i);
-  if (multi) sale = parseFloat(multi[2]) / parseInt(multi[1], 10);
-  if (sale == null) {
-    const cents = rest.match(/(\d{1,2})\s*¢/);
-    if (cents) sale = parseInt(cents[1], 10) / 100;
-  }
-  if (sale == null) {
-    const p = rest.match(/\$\s*(\d*\.?\d+)|(\d*\.\d{2})/);
-    if (p) sale = parseFloat(p[1] || p[2]);
-  }
-  return { sale, reg };
-}
 function addAdItem(key, sale, reg) {
   const it = CATALOG[key];
   const r = reg && reg > 0 ? reg : Math.max(it.b, sale);
@@ -931,425 +650,8 @@ function addAdItem(key, sale, reg) {
   state.ad.push({ key, sale: Math.round(sale * 100) / 100, reg: Math.round(r * 100) / 100 });
 }
 
-/* ---------- Rendering ---------- */
-function weekOf() {
-  const d = new Date();
-  d.setDate(d.getDate() - d.getDay());
-  return d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
-}
 
-function renderHeader() {
-  $('#weekOf').textContent = 'Week of ' + weekOf();
-  const s = state.settings;
-  $('#storeLine').textContent = [s.store !== 'Other' ? s.store : '', s.zip, `Feeds ${s.people}`].filter(Boolean).join(' · ');
-  const ab = $('#adBadge'), pb = $('#planBadge');
-  ab.hidden = !state.ad.length; ab.textContent = state.ad.length;
-  pb.hidden = !state.plan.length; pb.textContent = state.plan.length;
-  document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === state.tab));
-  document.querySelectorAll('main section, .wrap > section').forEach(sec => { sec.hidden = sec.id !== 'tab-' + state.tab; });
-}
-
-function renderKitchen() {
-  const s = state.settings;
-  renderStoreSelect();
-  $('#zip').value = s.zip;
-  $('#code').value = s.code;
-  $('#people').textContent = s.people;
-  $('#dinners').textContent = s.dinners;
-  $('#budget').value = s.budget;
-  $('#maxTime').value = String(s.maxTime);
-  $('#diets').innerHTML = Object.entries(DIETS).map(([k, d]) =>
-    `<button class="chip" data-diet="${k}" aria-pressed="${s.diets.includes(k)}">${d.label}</button>`).join('');
-  document.querySelectorAll('[data-pref]').forEach(b => {
-    b.setAttribute('aria-pressed', b.dataset.pref === s.pref);
-    if (b.dataset.pref === 'store') b.textContent = `Store brand (${storeBrand()})`;
-  });
-}
-
-function renderAd() {
-  const s = state.settings;
-  const flyers = storeFlyers();
-  $('#autoCard').hidden = !flyers.length;
-  $('#findCard').hidden = !!flyers.length;
-  $('#readTitle').textContent = flyers.length ? 'Or read screenshots' : 'Read the ad for me';
-  $('#autoTitle').textContent = `This week's ${s.store} ad`;
-  $('#flyerList').innerHTML = flyers.map(f => `<li>
-      <div><div class="name">${esc(f.name)}</div><div class="small sans muted">Through ${esc(shortDate(f.validTo))}${f.source ? ` · <a href="${esc(f.source)}" target="_blank" rel="noopener">list from Living Rich With Coupons</a>` : ''}</div></div>
-      <span></span>
-      <button class="btn sm ${state.loaded[f.id] ? 'added' : ''}" data-flyer="${f.id}">${state.loaded[f.id] ? 'Loaded ✓' : 'Load'}</button>
-    </li>`).join('');
-  renderFound();
-  const store = s.store === 'Other' ? 'your store' : s.store;
-  const q = encodeURIComponent(`${s.store === 'Other' ? 'grocery' : s.store} weekly ad ${s.zip}`.trim());
-  // Stores whose circular page we know; others get a search for their ad.
-  const AD_PAGES = { 'ShopRite': 'https://www.shoprite.com/circulars' };
-  $('#findAdLink').href = AD_PAGES[s.store] || `https://www.google.com/search?q=${q}`;
-  $('#findAdTitle').textContent = `Find ${store === 'your store' ? 'the' : store + "'s"} weekly ad`;
-  const where = AD_PAGES[s.store] ? `Opens ${store}'s weekly ad. Pick your store there if it asks.` : s.zip ? `Searches for ${store}'s ad near ${s.zip}.` : 'Add your ZIP code on the Your Kitchen tab to find your local ad.';
-  $('#findAdNote').textContent = `${where} Screenshot the ad pages there (or in the ${store === 'your store' ? "store's" : store} app), then come back here and tap Add ad screenshots.`;
-
-  const list = $('#adList');
-  if (!state.ad.length) {
-    list.innerHTML = `<li class="empty" style="display:block">No sale items yet. Add some above, or load the sample ad to try it out.</li>`;
-    return;
-  }
-  list.innerHTML = state.ad
-    .slice()
-    .sort((a, b) => CATS.indexOf(CATALOG[a.key].c) - CATS.indexOf(CATALOG[b.key].c))
-    .map(a => {
-      const it = CATALOG[a.key];
-      const pct = a.reg > a.sale ? Math.round((1 - a.sale / a.reg) * 100) : 0;
-      const tip = hasBrands(it) && it.s < a.sale
-        ? `<div class="note">${esc(storeBrand())} is usually ${money(it.s)}${perUnit(it.u)}, cheaper than this sale.</div>` : '';
-      return `<li>
-        <div><div class="name">${esc(it.n)}</div><div class="small muted sans">${esc(it.c)}${pct ? ` · <span class="save">${pct}% off</span>` : ''}</div>${tip}</div>
-        <div class="prices"><strong>${money(a.sale)}</strong>${perUnit(it.u)}<br><span class="strike">${money(a.reg)}</span></div>
-        <button class="x" data-remove-ad="${a.key}" aria-label="Remove ${esc(it.n)}">×</button>
-      </li>`;
-    }).join('');
-}
-
-function recipeCard(e) {
-  const r = e.r, inPlan = state.plan.includes(r.id), open = !!state.open[r.id];
-  const ad = adMap();
-  const time = r.time > r.active ? `${r.active} min hands-on · ${r.time >= 120 ? Math.round(r.time / 60 * 2) / 2 + ' hr' : r.time + ' min'} total` : `${r.time} min`;
-  const uses = e.saleItems.length
-    ? `<p class="uses"><span class="sale-tag">On sale</span> ${e.saleItems.map(k => esc(CATALOG[k].n.replace(/\s*\(.*\)/, ''))).join(', ')}</p>`
-    : `<p class="uses muted small">No sale items in this one.</p>`;
-  let body = '';
-  if (open) {
-    const ings = e.ings.map(i =>
-      `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` <span class="sale-tag">Sale ${money(ad[i.key].sale)}${perUnit(CATALOG[i.key].u)}</span>` : ''}</li>`).join('');
-    const notes = [
-      ...e.skipped.map(k => `Leave off the ${CATALOG[k].n.replace(/\s*\(.*\)/, '').toLowerCase()} to fit your diet.`),
-      ...e.swaps,
-    ];
-    body = `<div class="body">
-      <strong class="sans small">Ingredients (serves ${state.settings.people})</strong>
-      <ul>${ings}</ul>
-      <div class="small muted">From the pantry: ${esc(r.pantry.join(', '))}</div>
-      ${notes.length ? `<ul class="small">${notes.map(n => `<li class="tip">${esc(n)}</li>`).join('')}</ul>` : ''}
-      <strong class="sans small">Method</strong>
-      <ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
-    </div>`;
-  }
-  return `<article class="card recipe">
-    <h3>${esc(r.name)}</h3>
-    <div class="meta"><span>⏱ ${time}</span><span>≈ ${money(e.perServing)}/serving</span></div>
-    ${uses}
-    ${SOURCES[r.id] ? `<a class="src" href="${esc(SOURCES[r.id].url)}" target="_blank" rel="noopener">Full recipe at ${esc(SOURCES[r.id].site)} ↗</a>` : ''}
-    ${body}
-    <div class="foot">
-      ${e.saleSave >= 0.5 ? `<span class="pill">Saves ${money(e.saleSave)}</span>` : '<span></span>'}
-      <div class="row" style="gap:6px">
-        <button class="btn sm plain" data-toggle-open="${r.id}">${open ? 'Hide' : 'Recipe'}</button>
-        <button class="btn sm ${inPlan ? 'added' : ''}" data-toggle-plan="${r.id}">${inPlan ? '✓ In this week' : '+ Add to week'}</button>
-      </div>
-    </div>
-  </article>`;
-}
-
-function renderRecipes() {
-  const all = candidates();
-  const chip = $('#saleOnlyChip');
-  chip.hidden = !state.ad.length;
-  chip.setAttribute('aria-pressed', state.saleOnly);
-  const shown = state.ad.length && state.saleOnly ? all.filter(e => e.saleItems.length) : all;
-  const parts = [`${shown.length} recipe${shown.length === 1 ? '' : 's'} fit your kitchen`];
-  parts.push(state.ad.length ? 'best sale savings first' : 'add sale items on the Sale Ad tab to rank them by savings');
-  $('#recipesLede').textContent = parts.join(', ') + '. Each one is sized for ' + state.settings.people + ' people.';
-  $('#recipeGrid').innerHTML = shown.length
-    ? shown.map(recipeCard).join('')
-    : `<div class="card empty" style="grid-column:1/-1">Nothing matches right now. Try allowing more cooking time or turning off a dietary filter.</div>`;
-}
-
-function renderList() {
-  const s = state.settings;
-  const L = buildList(state.plan);
-  const budget = parseFloat(s.budget);
-  const lede = $('#listLede');
-  if (!state.plan.length) {
-    lede.textContent = '';
-    $('#listBody').innerHTML = `<div class="card empty">
-      <p>No dinners picked yet.</p>
-      <button class="btn" id="autoPlanBtn2">✨ Plan my week for me</button>
-      <p class="small">or choose recipes yourself on the <a href="#" data-goto="recipes">Recipes</a> tab.</p></div>`;
-    return;
-  }
-  lede.textContent = `Everything for ${state.plan.length} dinner${state.plan.length === 1 ? '' : 's'} at ${s.store === 'Other' ? 'your store' : s.store}, sorted by aisle. Tap items as you shop.`;
-  const saved = L.regular - L.total;
-  let meter = '';
-  if (budget > 0) {
-    const pct = Math.min(100, L.total / budget * 100);
-    const over = L.total > budget;
-    meter = `<div class="meter ${over ? 'over' : ''}"><div style="width:${pct}%"></div></div>
-      <div class="small sans ${over ? '' : 'muted'}" style="${over ? 'color:var(--accent)' : ''}">${money(L.total)} of your ${money(budget)} budget${over ? ` (${money(L.total - budget)} over)` : ` · ${money(budget - L.total)} left`}</div>`;
-  }
-  const plan = state.plan.map(id => {
-    const r = RECIPE_BY_ID[id];
-    const warn = L.warnings.includes(r.name) ? ' <span class="small" style="color:var(--accent)">(doesn\'t fit your diet)</span>' : '';
-    return `<li><span>${esc(r.name)}${warn}</span><button class="x" data-toggle-plan="${id}" aria-label="Remove ${esc(r.name)}">×</button></li>`;
-  }).join('');
-
-  let shop = '', cat = '';
-  for (const i of L.items) {
-    if (i.it.c !== cat) {
-      if (cat) shop += '</ul>';
-      cat = i.it.c;
-      shop += `<div class="cat">${esc(cat)}</div><ul class="shop">`;
-    }
-    const done = !!state.checked[i.key];
-    const qty = i.it.u === 'each' ? `${fq(i.buy)} ×` : `${fq(i.buy)} ${unitWord(i.it.u, i.buy)}`;
-    let sub = `${money(i.price)}${perUnit(i.it.u)}`;
-    if (i.sale) {
-      sub = `<span class="sale-tag">Sale</span> ${sub} <span class="strike">${money(i.reg)}</span>`;
-      if (hasBrands(i.it) && i.it.s < i.sale.sale) sub += ` <span class="tip">${esc(storeBrand())} is usually ${money(i.it.s)}</span>`;
-    } else if (hasBrands(i.it)) {
-      sub = `<span class="seg">
-        <button data-brand="${i.key}:store" aria-pressed="${i.brand === 'store'}">${esc(storeBrand())} ${money(i.it.s)}</button>
-        <button data-brand="${i.key}:name" aria-pressed="${i.brand === 'name'}">Name brand ${money(i.it.b)}</button>
-      </span>`;
-    }
-    shop += `<li class="${done ? 'done' : ''}">
-      <input type="checkbox" data-check="${i.key}" ${done ? 'checked' : ''} aria-label="Got ${esc(i.it.n)}">
-      <div><div class="what">${esc(qty)} ${esc(i.it.n)}</div><div class="sub">${sub}</div></div>
-      <div class="cost">${money(i.cost)}</div>
-    </li>`;
-  }
-  if (cat) shop += '</ul>';
-
-  $('#listBody').innerHTML = `
-    <div class="card">
-      <div class="totals">
-        <div><div class="num">${money(L.total)}</div><div class="lbl">Estimated total</div></div>
-        <div class="big"><div class="num">${money(saved)}</div><div class="lbl">You save</div></div>
-        <div><div class="num">${money(L.total / (state.plan.length * s.people))}</div><div class="lbl">Per serving</div></div>
-      </div>
-      ${meter}
-      <p class="note">Without the sales and store brands this would be about ${money(L.regular)}. Sale prices save ${money(L.saleSave)}${L.brandSave > 0.005 ? ` and store brands save ${money(L.brandSave)}` : ''}. Prices for items not in the ad are typical estimates.</p>
-    </div>
-
-    <div class="card">
-      <h3>This week's dinners</h3>
-      <ul class="plan-list">${plan}</ul>
-    </div>
-
-    <div class="card">
-      <div class="spread" style="margin-bottom:8px">
-        <h3 style="margin:0">Shopping list</h3>
-        <button class="btn sm plain" id="uncheckBtn">Uncheck all</button>
-      </div>
-      ${shop}
-    </div>
-
-    <div class="card">
-      <h3>Check the pantry for</h3>
-      <p class="small" style="margin:0">${esc(L.pantry.join(', '))}</p>
-    </div>
-
-    <div class="row no-print">
-      <button class="btn" id="shareBtn">Share list</button>
-      <button class="btn ghost" id="printBtn">Print this week's column</button>
-      <button class="btn plain" id="newWeekBtn">Start a new week</button>
-    </div>
-    <div class="flash" id="shareFlash"></div>`;
-}
-
-function renderPrintColumn() {
-  const s = state.settings;
-  const evs = state.plan.map(id => RECIPE_BY_ID[id]).filter(Boolean).map(r => evalRecipe(r) || null).filter(Boolean);
-  const L = buildList(state.plan);
-  const ad = adMap();
-  $('#printColumn').innerHTML = `
-    <p class="lede" style="text-align:center">${esc(s.store)} specials · serves ${s.people} · estimated ${money(L.total)}, saving ${money(L.regular - L.total)}</p>
-    <div class="pc-cols">
-      ${evs.map(e => `<div class="pc-recipe">
-        <h3>${esc(e.r.name)}</h3>
-        <div class="small"><em>${e.r.time} minutes${e.saleItems.length ? ' · On sale: ' + e.saleItems.map(k => esc(CATALOG[k].n)).join(', ') : ''}</em></div>
-        <ul>${e.ings.map(i => `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` (sale ${money(ad[i.key].sale)})` : ''}</li>`).join('')}</ul>
-        <ol>${e.r.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
-        ${SOURCES[e.r.id] ? `<div class="small">Full recipe: ${esc(SOURCES[e.r.id].url)}</div>` : ''}
-      </div>`).join('')}
-      <div class="pc-recipe"><h3>Shopping list</h3><ul>${L.items.map(i => `<li>${esc(i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy))} ${esc(i.it.n)}: ${money(i.cost)}</li>`).join('')}</ul></div>
-    </div>`;
-}
-
-function listText() {
-  const L = buildList(state.plan);
-  const lines = [`The Weekly Special, week of ${weekOf()}`, '', 'Dinners:'];
-  state.plan.forEach(id => lines.push('• ' + RECIPE_BY_ID[id].name));
-  let cat = '';
-  for (const i of L.items) {
-    if (i.it.c !== cat) { cat = i.it.c; lines.push('', cat.toUpperCase()); }
-    const qty = i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy);
-    const tag = i.sale ? ' (SALE)' : hasBrands(i.it) ? (i.brand === 'store' ? ` (${storeBrand()})` : ' (name brand)') : '';
-    lines.push(`☐ ${qty} ${i.it.n}${tag}: ${money(i.cost)}`);
-  }
-  lines.push('', `Estimated total ${money(L.total)}, saving ${money(L.regular - L.total)}`);
-  return lines.join('\n');
-}
-
-function render() {
-  renderHeader();
-  if (state.tab === 'kitchen') renderKitchen();
-  if (state.tab === 'ad') renderAd();
-  if (state.tab === 'recipes') renderRecipes();
-  if (state.tab === 'list') renderList();
-}
-function go(tab) {
-  state.tab = tab;
-  save();
-  render();
-  window.scrollTo({ top: 0 });
-}
-
-/* ---------- Events ---------- */
-$('#catalogList').innerHTML = Object.values(CATALOG)
-  .sort((a, b) => a.n.localeCompare(b.n))
-  .map(it => `<option value="${esc(it.n)}"></option>`).join('');
-
-function setSetting(k, v) { state.settings[k] = v; save(); renderHeader(); }
-$('#store').addEventListener('change', e => { setSetting('store', e.target.value); renderKitchen(); });
-$('#zip').addEventListener('input', e => {
-  setSetting('zip', e.target.value.trim());
-  renderStoreSelect();
-  if (/^\d{5}$/.test(state.settings.zip)) loadStores();
-});
-$('#budget').addEventListener('input', e => setSetting('budget', e.target.value));
-$('#maxTime').addEventListener('change', e => setSetting('maxTime', parseInt(e.target.value, 10)));
-
-function findCatalog(name) {
-  const n = name.trim().toLowerCase();
-  const exact = Object.values(CATALOG).find(it => it.n.toLowerCase() === n);
-  return exact ? exact.key : matchItem(n);
-}
-$('#addName').addEventListener('input', e => {
-  const key = findCatalog(e.target.value);
-  const it = key && CATALOG[key];
-  $('#saleLbl').textContent = it ? `Sale price ${perUnit(it.u)}` : 'Sale price';
-  $('#regLbl').textContent = it ? `Regular ${perUnit(it.u)}` : 'Regular price';
-  $('#addReg').placeholder = it ? `about ${money(it.b)}` : 'optional';
-});
-function addFromForm() {
-  const flash = $('#addFlash');
-  const key = findCatalog($('#addName').value);
-  const sale = parseFloat($('#addSale').value);
-  const reg = parseFloat($('#addReg').value);
-  if (!key) { flash.textContent = "That item isn't in the recipe collection yet. Try a more common name (for example, \"ground beef\")."; return; }
-  if (!(sale > 0)) { flash.textContent = 'Enter the sale price.'; $('#addSale').focus(); return; }
-  addAdItem(key, sale, reg);
-  save();
-  flash.textContent = `Added ${CATALOG[key].n}.`;
-  $('#addName').value = ''; $('#addSale').value = ''; $('#addReg').value = '';
-  $('#addName').dispatchEvent(new Event('input'));
-  $('#addName').focus();
-  renderHeader(); renderAd();
-}
-$('#addBtn').addEventListener('click', addFromForm);
-['#addSale', '#addReg', '#addName'].forEach(sel => $(sel).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addFromForm(); } }));
-
-$('#pasteBtn').addEventListener('click', () => {
-  const added = [], missed = [];
-  for (const line of $('#pasteText').value.split(/\n+/).map(l => l.trim()).filter(Boolean)) {
-    const key = matchItem(line);
-    const { sale, reg } = parsePrices(line);
-    if (key && sale > 0) { addAdItem(key, sale, reg); added.push(CATALOG[key].n); }
-    else missed.push(line);
-  }
-  save();
-  let msg = added.length ? `Added ${added.length}: ${added.join(', ')}.` : 'Nothing added.';
-  if (missed.length) msg += ` Couldn't read: ${missed.join('; ')}. (Each line needs an item from the recipe collection and a price.)`;
-  $('#pasteFlash').textContent = msg;
-  if (added.length) $('#pasteText').value = missed.join('\n');
-  renderHeader(); renderAd();
-});
-$('#sampleBtn').addEventListener('click', () => {
-  SAMPLE_AD.forEach(([k, s, r]) => addAdItem(k, s, r));
-  save(); renderHeader(); renderAd();
-});
-// Asks for a second tap instead of a confirm() dialog.
-function armed(btn) {
-  if (btn.dataset.armed) return true;
-  const label = btn.textContent;
-  btn.dataset.armed = '1';
-  btn.textContent = 'Tap again to confirm';
-  setTimeout(() => { delete btn.dataset.armed; btn.textContent = label; }, 3000);
-  return false;
-}
-$('#clearAdBtn').addEventListener('click', e => {
-  if (state.ad.length && !armed(e.currentTarget)) return;
-  state.ad = []; save(); renderHeader(); renderAd();
-});
-
-document.addEventListener('click', e => {
-  const t = e.target.closest('button, a, input');
-  if (!t) return;
-  const d = t.dataset;
-  if (d.tab) return go(d.tab);
-  if (d.flyer) return loadFlyer(d.flyer);
-  if (d.goto) { e.preventDefault(); return go(d.goto); }
-  if (d.step) {
-    const lim = { people: [1, 12], dinners: [1, 7] }[d.step];
-    const v = Math.min(lim[1], Math.max(lim[0], state.settings[d.step] + parseInt(d.d, 10)));
-    setSetting(d.step, v);
-    return renderKitchen();
-  }
-  if (d.diet) {
-    const s = state.settings;
-    s.diets = s.diets.includes(d.diet) ? s.diets.filter(x => x !== d.diet) : [...s.diets, d.diet];
-    save(); return renderKitchen();
-  }
-  if (d.pref) { state.settings.pref = d.pref; state.brand = {}; save(); return renderKitchen(); }
-  if (d.removeAd) { state.ad = state.ad.filter(a => a.key !== d.removeAd); save(); renderHeader(); return renderAd(); }
-  if (d.toggleOpen) { state.open[d.toggleOpen] = !state.open[d.toggleOpen]; save(); return renderRecipes(); }
-  if (d.togglePlan) {
-    const id = d.togglePlan;
-    state.plan = state.plan.includes(id) ? state.plan.filter(x => x !== id) : [...state.plan, id];
-    save(); return render();
-  }
-  if (d.brand) { const [k, b] = d.brand.split(':'); state.brand[k] = b; save(); return renderList(); }
-  if (d.check) { state.checked[d.check] = t.checked; save(); t.closest('li').classList.toggle('done', t.checked); return; }
-  if (t.id === 'saleOnlyChip') { state.saleOnly = !state.saleOnly; save(); return renderRecipes(); }
-  if (t.id === 'autoPlanBtn' || t.id === 'autoPlanBtn2') {
-    state.plan = autoPlan(); state.checked = {}; save();
-    if (!state.plan.length) {
-      state.tab = 'recipes'; render();
-      $('#planFlash').textContent = 'No recipes fit your budget and settings. Try raising the budget or the cooking time.';
-      return;
-    }
-    return go('list');
-  }
-  if (t.id === 'uncheckBtn') { state.checked = {}; save(); return renderList(); }
-  if (t.id === 'printBtn') { renderPrintColumn(); return window.print(); }
-  if (t.id === 'newWeekBtn') {
-    if (!armed(t)) return;
-    state.ad = []; state.plan = []; state.checked = {}; state.brand = {}; state.open = {}; state.found = []; state.loaded = {};
-    return go('ad');
-  }
-  if (t.id === 'shareBtn') {
-    const text = listText();
-    const flash = $('#shareFlash');
-    const showText = () => {
-      flash.innerHTML = '<p class="small">Copy this list:</p><textarea id="shareText" readonly></textarea>';
-      $('#shareText').value = text;
-      $('#shareText').select();
-    };
-    const copy = () => {
-      if (!navigator.clipboard) return showText();
-      navigator.clipboard.writeText(text).then(() => { flash.textContent = 'Copied the list. Paste it into a text or note.'; }, showText);
-    };
-    if (navigator.share) {
-      navigator.share({ title: 'Grocery list', text }).catch(err => { if (err.name !== 'AbortError') copy(); });
-      return;
-    }
-    copy();
-  }
-});
-window.addEventListener('beforeprint', renderPrintColumn);
-
-/* ---------- Weekly ad: automatic (Flipp) or screenshots read by Claude ---------- */
-let readCtl = null;
-
+/* ---------- Loading the weekly ad ---------- */
 async function api(path, opts = {}) {
   const headers = { ...(opts.headers || {}) };
   if (state.settings.code) headers['x-site-code'] = state.settings.code;
@@ -1360,79 +662,94 @@ async function api(path, opts = {}) {
   return body;
 }
 
-function shortDate(iso) {
-  const d = new Date(iso);
-  return isNaN(d) ? '' : d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-}
-
 function storeFlyers() {
   const f = state.flyers;
   if (!f || f.zip !== state.settings.zip) return [];
   const now = Date.now();
-  return f.list
-    .filter(x => x.merchant === state.settings.store && (!x.validTo || new Date(x.validTo).getTime() > now))
-    .sort((a, b) => /weekly/i.test(b.name) - /weekly/i.test(a.name));
+  return f.list.filter(x => x.merchant === state.settings.store && (!x.validTo || new Date(x.validTo).getTime() > now));
 }
 
-function renderStoreSelect() {
-  const s = state.settings;
-  const f = state.flyers && state.flyers.zip === s.zip ? state.flyers.list : [];
-  const auto = [...new Set(f.map(x => x.merchant))].sort((a, b) => a.localeCompare(b));
-  const manual = Object.keys(STORES).filter(n => !auto.includes(n));
-  if (!auto.includes(s.store) && !manual.includes(s.store)) manual.unshift(s.store);
-  const opts = list => list.map(n => `<option ${n === s.store ? 'selected' : ''}>${esc(n)}</option>`).join('');
-  $('#store').innerHTML = auto.length
-    ? `<optgroup label="Ad loads automatically">${opts(auto)}</optgroup><optgroup label="Ad from screenshots">${opts(manual)}</optgroup>`
-    : opts(manual);
-  $('#storeNote').textContent = !/^\d{5}$/.test(s.zip)
-    ? 'Enter your ZIP code to see which nearby stores have their weekly ad loaded automatically.'
-    : auto.length
-      ? `${auto.length} stores near ${s.zip} have their weekly ad loaded automatically. For other stores, you add screenshots of the ad.`
-      : 'Looking up stores near you...';
+// The ad running today: started already, "weekly" ads first.
+function currentFlyer() {
+  const now = Date.now();
+  const list = storeFlyers().slice().sort((a, b) => /week/i.test(b.name) - /week/i.test(a.name));
+  return list.find(f => !f.validFrom || new Date(f.validFrom).getTime() <= now) || list[0] || null;
 }
 
 async function loadStores() {
   const zip = state.settings.zip;
   if (!/^\d{5}$/.test(zip)) return;
+  busy = 'Finding stores near you...';
+  renderStatus();
   try {
     const { flyers } = await api(`/api/stores?zip=${zip}`);
     state.flyers = { zip, list: flyers, at: Date.now() };
     save();
+    problem = '';
   } catch (e) {
-    $('#storeNote').textContent = e.message;
-    return;
+    problem = e.message;
   }
-  if (state.tab === 'kitchen') renderStoreSelect();
-  if (state.tab === 'ad') renderAd();
+  busy = null;
+  renderStoreSelect();
+  loadAd();
 }
 
-function addFound(items) {
-  const seen = new Set(state.found.map(f => f.name.toLowerCase()));
-  const fresh = items
-    .filter(f => f && f.name && !seen.has(f.name.toLowerCase()) && seen.add(f.name.toLowerCase()))
-    .map(f => ({ name: f.name, deal: f.deal || '', key: CATALOG[f.key] ? f.key : null, sale: f.sale || null, regular: f.regular || null, sel: false }));
-  state.found = state.found.concat(fresh);
-  save();
-  return fresh.length;
-}
-
-async function loadFlyer(id) {
-  const f = storeFlyers().find(x => String(x.id) === String(id));
-  if (!f) return;
-  const flash = $('#autoFlash');
-  const btn = document.querySelector(`[data-flyer="${f.id}"]`);
-  if (btn) btn.disabled = true;
-  flash.textContent = `Loading the ${f.merchant} ad. The first load each week takes about a minute.`;
+// Uses the current ad for the chosen store, if it isn't the one already in use.
+async function loadAd() {
+  const f = currentFlyer();
+  if (!f || (state.adSource && state.adSource.id === f.id)) return renderStatus();
+  if (!state.settings.code) {
+    problem = 'Enter the access code under More options to load the ad.';
+    return renderStatus();
+  }
+  busy = `Loading the ${f.merchant} ad. This can take up to a minute.`;
+  problem = '';
+  renderStatus();
   try {
     const { items } = await api(`/api/ad?flyer=${f.id}&store=${encodeURIComponent(f.merchant)}`);
-    state.loaded[f.id] = true;
-    const n = addFound(items);
-    flash.textContent = `Loaded ${n} sale item${n === 1 ? '' : 's'}. Tick the ones you want below, then tap Add.`;
-    renderAd();
+    useAd(items, { id: f.id, label: `${f.merchant} ${/^week/i.test(f.name) ? f.name.toLowerCase() : 'weekly ad'}`, link: f.source || '' });
   } catch (e) {
-    flash.textContent = e.message;
-    if (btn) btn.disabled = false;
+    problem = e.message;
   }
+  busy = null;
+  render();
+}
+
+async function readScreenshots(files) {
+  if (!state.settings.code) {
+    problem = 'Enter the access code under More options first.';
+    return renderStatus();
+  }
+  const found = [];
+  problem = '';
+  try {
+    for (let i = 0; i < files.length; i += 8) {
+      busy = files.length > 8 ? `Reading the ad (part ${i / 8 + 1} of ${Math.ceil(files.length / 8)})...` : 'Reading your screenshots. This takes about a minute.';
+      renderStatus();
+      const form = new FormData();
+      for (const f of files.slice(i, i + 8)) form.append('images', await shrink(f), 'page.jpg');
+      form.append('store', state.settings.store);
+      found.push(...(await api('/api/read-ad', { method: 'POST', body: form })).items);
+    }
+    useAd(found, { id: 'screens', label: 'your screenshots', link: '' });
+  } catch (e) {
+    problem = e.message;
+  }
+  busy = null;
+  render();
+}
+
+// Puts every matched sale item into use and plans the week around them.
+function useAd(items, source) {
+  state.ad = [];
+  items.filter(i => i.key && CATALOG[i.key] && i.sale > 0)
+    .sort((a, b) => b.sale - a.sale)
+    .forEach(i => addAdItem(i.key, i.sale, i.regular));
+  state.adSource = source;
+  state.checked = {};
+  state.open = {};
+  state.plan = autoPlan();
+  save();
 }
 
 // Shrinks a photo so uploads stay small; the server and Claude don't need full resolution.
@@ -1450,118 +767,268 @@ async function shrink(file) {
   }
 }
 
-async function readAd(files, text) {
-  const flash = $('#readFlash');
-  const batches = [];
-  for (let i = 0; i < files.length; i += 8) batches.push(files.slice(i, i + 8));
-  if (!batches.length) batches.push([]);
-  $('#stopReadBtn').hidden = false;
-  $('#readTextBtn').disabled = true;
-  let found = 0;
-  try {
-    for (let i = 0; i < batches.length; i++) {
-      flash.textContent = batches.length > 1
-        ? `Reading the ad (part ${i + 1} of ${batches.length})... this takes about a minute each.`
-        : 'Reading the ad... this takes about a minute.';
-      readCtl = new AbortController();
-      const form = new FormData();
-      for (const f of batches[i]) form.append('images', await shrink(f), 'page.jpg');
-      if (i === 0 && text) form.append('text', text);
-      form.append('store', state.settings.store);
-      const { items } = await api('/api/read-ad', { method: 'POST', body: form, signal: readCtl.signal });
-      found += addFound(items);
-    }
-    flash.textContent = found
-      ? `Found ${found} sale item${found === 1 ? '' : 's'}. Tick the ones you want below, then tap Add.`
-      : 'No new sale items found. Try clearer screenshots of the ad pages.';
-  } catch (e) {
-    flash.textContent = e.name === 'AbortError' ? '' : e.message;
-  } finally {
-    $('#stopReadBtn').hidden = true;
-    $('#readTextBtn').disabled = false;
-    readCtl = null;
+
+/* ---------- Plan changes ---------- */
+function replan() {
+  state.plan = autoPlan();
+  state.checked = {};
+  save();
+  render();
+}
+
+// Replaces one dinner with the best recipe not already planned.
+function swap(id) {
+  const budget = parseFloat(state.settings.budget) || Infinity;
+  const others = state.plan.filter(x => x !== id);
+  const tried = state.swapped && state.swapped[id] ? state.swapped[id] : [];
+  const next = candidates().find(e => !state.plan.includes(e.r.id) && !tried.includes(e.r.id) && buildList([...others, e.r.id]).total <= budget);
+  if (!next) return;
+  state.plan = state.plan.map(x => x === id ? next.r.id : x);
+  state.swapped = { [next.r.id]: [...tried, id] };
+  delete state.open[id];
+  save();
+  render();
+}
+
+/* ---------- Rendering ---------- */
+function renderStoreSelect() {
+  const s = state.settings;
+  const f = state.flyers && state.flyers.zip === s.zip ? state.flyers.list : [];
+  const auto = [...new Set(f.map(x => x.merchant))].sort((a, b) => a.localeCompare(b));
+  const manual = Object.keys(STORES).filter(n => !auto.includes(n));
+  if (!auto.includes(s.store) && !manual.includes(s.store)) manual.unshift(s.store);
+  const opts = list => list.map(n => `<option ${n === s.store ? 'selected' : ''}>${esc(n)}</option>`).join('');
+  $('#store').innerHTML = auto.length
+    ? `<optgroup label="Ad loads automatically">${opts(auto)}</optgroup><optgroup label="Ad from screenshots">${opts(manual)}</optgroup>`
+    : opts(manual);
+}
+
+function renderSetup() {
+  const s = state.settings;
+  $('#zip').value = s.zip;
+  $('#code').value = s.code;
+  $('#budget').value = s.budget;
+  $('#maxTime').value = String(s.maxTime);
+  $('#peopleOut').textContent = s.people;
+  $('#dinnersOut').textContent = s.dinners;
+  $('#diets').innerHTML = Object.entries(DIETS).map(([k, d]) =>
+    `<button class="chip" data-diet="${k}" aria-pressed="${s.diets.includes(k)}">${d.label}</button>`).join('');
+  document.querySelectorAll('[data-pref]').forEach(b => b.setAttribute('aria-pressed', b.dataset.pref === s.pref));
+  $('#prefStore').textContent = `Store brand (${storeBrand()})`;
+  renderStoreSelect();
+  if (!s.code) $('#more').open = true;
+}
+
+function renderStatus() {
+  const el = $('#status');
+  const s = state.settings;
+  const d = new Date();
+  d.setDate(d.getDate() - d.getDay());
+  $('#dateline').textContent = `Week of ${d.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}`;
+  if (busy) {
+    el.innerHTML = `<div><span class="spinner"></span>${esc(busy)}</div>`;
+    return;
   }
-  renderFound();
+  if (!/^\d{5}$/.test(s.zip)) {
+    el.innerHTML = `<div>Enter your ZIP code to load this week's sale ad.</div>`;
+    return;
+  }
+  const auto = !!currentFlyer();
+  const n = state.ad.length;
+  let msg;
+  if (state.adSource && n) {
+    const from = state.adSource.link ? ` <a href="${esc(state.adSource.link)}" target="_blank" rel="noopener">(source)</a>` : '';
+    msg = `<div><strong>Using ${n} sale item${n === 1 ? '' : 's'}</strong> from ${esc(state.adSource.label)}${from}.</div>`;
+  } else if (state.adSource) {
+    msg = `<div>No recipe ingredients were on sale in ${esc(state.adSource.label)}. Dinners use regular prices.</div>`;
+  } else if (auto) {
+    msg = `<div>This week's ${esc(s.store)} ad hasn't loaded yet.</div>`;
+  } else {
+    msg = `<div>${esc(s.store)}'s ad doesn't load automatically. Screenshot it in the store's app or website, then add the screenshots here.</div>`;
+  }
+  const buttons = auto
+    ? `<button class="btn sm plain" id="reloadBtn">Reload ad</button>`
+    : `<button class="btn sm" id="photoBtn">Add ad screenshots</button>`;
+  el.innerHTML = `${msg}<div class="row">${buttons}</div>${problem ? `<div style="flex-basis:100%;color:var(--accent)">${esc(problem)}</div>` : ''}`;
 }
 
-function recipeCount(key) { return RECIPES.filter(r => key in r.ings).length; }
-
-function renderFound() {
-  const box = $('#foundBox');
-  $('#foundCard').hidden = !state.found.length;
-  if (!state.found.length) { box.innerHTML = ''; return; }
-  const rows = state.found.map((f, i) => ({ f, i }));
-  const usable = rows.filter(x => x.f.key && x.f.sale).sort((a, b) => recipeCount(b.f.key) - recipeCount(a.f.key));
-  const other = rows.filter(x => !(x.f.key && x.f.sale));
-  const added = new Set(state.ad.map(a => a.key));
-  const row = ({ f, i }, ok) => {
-    const it = ok && CATALOG[f.key];
-    const n = ok ? recipeCount(f.key) : 0;
-    const price = ok ? `<strong>${money(f.sale)}</strong>${perUnit(it.u)}${f.regular ? `<br><span class="strike">${money(f.regular)}</span>` : ''}` : esc(f.deal || money(f.sale));
-    return `<li class="${ok ? '' : 'unused'} ${ok && f.added && added.has(f.key) ? 'added' : ''}"><label>
-      ${ok ? `<input type="checkbox" data-found="${i}" ${f.sel ? 'checked' : ''}>` : '<span style="width:22px"></span>'}
-      <div><div class="name">${esc(f.name)}</div><div class="small sans muted">${ok ? `${esc(f.deal)} · in ${n} recipe${n === 1 ? '' : 's'}` : 'Not used in any recipe yet'}</div></div>
-      <div class="prices">${price}</div>
-    </label></li>`;
-  };
-  const nSel = state.found.filter(f => f.sel).length;
-  box.innerHTML = `
-    <div class="spread" style="margin-top:14px">
-      <strong class="sans">On sale in this ad</strong>
-      <div class="row" style="gap:6px">
-        <button class="btn sm plain" id="selAllBtn">Select all</button>
-        <button class="btn sm plain" id="clearFoundBtn">Clear list</button>
-      </div>
+function dinnerCard(id) {
+  const r = RECIPE_BY_ID[id];
+  const e = evalRecipe(r);
+  const open = !!state.open[id];
+  const ad = adMap();
+  const time = r.time > r.active ? `${r.active} min hands-on, ${r.time >= 120 ? Math.round(r.time / 60 * 2) / 2 + ' hr' : r.time + ' min'} total` : `${r.time} min`;
+  if (!e) return `<li class="card dinner"><h3>${esc(r.name)}</h3><p class="small" style="color:var(--accent)">Doesn't fit your dietary needs anymore.</p><button class="btn sm plain" data-swap="${id}">Swap</button></li>`;
+  const uses = e.saleItems.length
+    ? `<p class="uses"><span class="sale-tag">On sale</span> ${e.saleItems.map(k => esc(CATALOG[k].n.replace(/\s*\(.*\)/, ''))).join(', ')}</p>`
+    : '';
+  let body = '';
+  if (open) {
+    const notes = [...e.skipped.map(k => `Leave off the ${CATALOG[k].n.replace(/\s*\(.*\)/, '').toLowerCase()} to fit your diet.`), ...e.swaps];
+    body = `<div class="body">
+      <ul>${e.ings.map(i => `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` <span class="sale-tag">Sale ${money(ad[i.key].sale)}${perUnit(CATALOG[i.key].u)}</span>` : ''}</li>`).join('')}</ul>
+      <div class="small muted">From the pantry: ${esc(r.pantry.join(', '))}</div>
+      ${notes.length ? `<ul class="small">${notes.map(n => `<li class="tip">${esc(n)}</li>`).join('')}</ul>` : ''}
+      <ol>${r.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
+      ${SOURCES[id] ? `<a class="src" href="${esc(SOURCES[id].url)}" target="_blank" rel="noopener">Full recipe at ${esc(SOURCES[id].site)} ↗</a>` : ''}
+    </div>`;
+  }
+  return `<li class="card dinner">
+    <h3>${esc(r.name)}</h3>
+    <div class="meta">${time} · about ${money(e.perServing)} a serving</div>
+    ${uses}
+    <div class="row">
+      <button class="btn sm plain" data-open="${id}">${open ? 'Hide recipe' : 'Recipe'}</button>
+      <button class="btn sm plain" data-swap="${id}">Swap</button>
     </div>
-    <ul class="found">${usable.map(x => row(x, true)).join('')}</ul>
-    ${other.length ? `<details style="margin-top:8px"><summary class="small">Also on sale (${other.length}), not used in any recipe yet</summary><ul class="found">${other.map(x => row(x, false)).join('')}</ul></details>` : ''}
-    <div class="found-bar"><button class="btn" id="addFoundBtn" ${nSel ? '' : 'disabled'} style="width:100%;justify-content:center">Add ${nSel || ''} selected item${nSel === 1 ? '' : 's'}</button></div>`;
+    ${body}
+  </li>`;
 }
 
+function renderDinners() {
+  $('#dinners').innerHTML = state.plan.length
+    ? state.plan.filter(id => RECIPE_BY_ID[id]).map(dinnerCard).join('')
+    : `<li class="empty">No dinners fit your settings. Try allowing more cooking time or a bigger budget under More options.</li>`;
+}
+
+function renderList() {
+  const s = state.settings;
+  const L = buildList(state.plan);
+  if (!state.plan.length) {
+    $('#list').innerHTML = '<p class="empty">Your list appears here once dinners are planned.</p>';
+    return;
+  }
+  const budget = parseFloat(s.budget);
+  const saved = L.regular - L.total;
+  const meter = budget > 0
+    ? `<div class="meter ${L.total > budget ? 'over' : ''}"><div style="width:${Math.min(100, L.total / budget * 100)}%"></div></div>
+       <div class="small sans muted">${money(L.total)} of your ${money(budget)} budget</div>`
+    : '';
+  let html = '', cat = '';
+  for (const i of L.items) {
+    if (i.it.c !== cat) {
+      if (cat) html += '</ul>';
+      cat = i.it.c;
+      html += `<div class="cat">${esc(cat)}</div><ul class="shop">`;
+    }
+    const qty = i.it.u === 'each' ? `${fq(i.buy)} ×` : `${fq(i.buy)} ${unitWord(i.it.u, i.buy)}`;
+    let sub;
+    if (i.sale) sub = `<span class="sale-tag">Sale</span> ${money(i.price)}${perUnit(i.it.u)} <span class="strike">${money(i.reg)}</span>`;
+    else if (hasBrands(i.it)) {
+      const other = i.brand === 'store' ? 'name' : 'store';
+      sub = `${i.brand === 'store' ? esc(storeBrand()) : 'Name brand'} ${money(i.price)} · <button data-brand="${i.key}:${other}">${other === 'store' ? 'switch to store brand' : 'switch to name brand'}</button>`;
+    } else sub = `${money(i.price)}${perUnit(i.it.u)}`;
+    html += `<li class="${state.checked[i.key] ? 'done' : ''}">
+      <input type="checkbox" data-check="${i.key}" ${state.checked[i.key] ? 'checked' : ''} aria-label="Got ${esc(i.it.n)}">
+      <div><div class="what">${esc(qty)} ${esc(i.it.n)}</div><div class="sub">${sub}</div></div>
+      <div class="cost">${money(i.cost)}</div>
+    </li>`;
+  }
+  if (cat) html += '</ul>';
+  $('#list').innerHTML = `
+    <div class="totals">
+      <div><div class="num">${money(L.total)}</div><div class="lbl">Total</div></div>
+      <div class="save"><div class="num">${money(saved)}</div><div class="lbl">You save</div></div>
+      <div><div class="num">${money(L.total / (state.plan.length * s.people))}</div><div class="lbl">Per serving</div></div>
+    </div>
+    ${meter}
+    ${html}
+    <div class="cat">Check the pantry for</div>
+    <p class="small" style="margin:0">${esc(L.pantry.join(', '))}</p>`;
+}
+
+function render() {
+  renderStatus();
+  renderDinners();
+  renderList();
+}
+
+function listText() {
+  const L = buildList(state.plan);
+  const lines = ['The Weekly Special', '', 'Dinners:', ...state.plan.map(id => '• ' + RECIPE_BY_ID[id].name)];
+  let cat = '';
+  for (const i of L.items) {
+    if (i.it.c !== cat) { cat = i.it.c; lines.push('', cat.toUpperCase()); }
+    const qty = i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy);
+    lines.push(`☐ ${qty} ${i.it.n}${i.sale ? ' (SALE)' : ''}: ${money(i.cost)}`);
+  }
+  lines.push('', `Total about ${money(L.total)}, saving ${money(L.regular - L.total)}`);
+  return lines.join('\n');
+}
+
+/* ---------- Events ---------- */
+function setSetting(k, v, then) {
+  state.settings[k] = v;
+  save();
+  if (then) then();
+}
+
+$('#zip').addEventListener('input', e => {
+  setSetting('zip', e.target.value.trim());
+  if (/^\d{5}$/.test(state.settings.zip)) loadStores(); else renderStatus();
+});
+$('#store').addEventListener('change', e => {
+  setSetting('store', e.target.value);
+  $('#prefStore').textContent = `Store brand (${storeBrand()})`;
+  state.ad = []; state.adSource = null; state.plan = autoPlan(); save();
+  render();
+  loadAd();
+});
+$('#code').addEventListener('change', e => { setSetting('code', e.target.value.trim()); loadAd(); });
+$('#budget').addEventListener('change', e => setSetting('budget', e.target.value, replan));
+$('#maxTime').addEventListener('change', e => setSetting('maxTime', parseInt(e.target.value, 10), replan));
 $('#adPhotos').addEventListener('change', e => {
   const files = [...e.target.files];
   e.target.value = '';
-  if (files.length) readAd(files, '');
+  if (files.length) readScreenshots(files);
 });
-$('#readTextBtn').addEventListener('click', () => {
-  const text = $('#adRaw').value.trim();
-  if (!text) { $('#readFlash').textContent = "Paste the ad's text in the box first."; return; }
-  readAd([], text);
-});
-$('#stopReadBtn').addEventListener('click', () => readCtl && readCtl.abort());
-$('#foundBox').addEventListener('change', e => {
-  const i = e.target.dataset.found;
-  if (i == null) return;
-  state.found[i].sel = e.target.checked;
-  save();
-  const n = state.found.filter(f => f.sel).length;
-  const b = $('#addFoundBtn');
-  b.disabled = !n;
-  b.textContent = `Add ${n || ''} selected item${n === 1 ? '' : 's'}`;
-});
-$('#foundBox').addEventListener('click', e => {
-  const t = e.target.closest('button');
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, input');
   if (!t) return;
-  if (t.id === 'selAllBtn') {
-    state.found.forEach(f => { if (f.key && f.sale) f.sel = true; });
-    save(); renderFound();
-  } else if (t.id === 'clearFoundBtn') {
-    if (!armed(t)) return;
-    state.found = []; save(); renderFound();
-    $('#readFlash').textContent = '';
-  } else if (t.id === 'addFoundBtn') {
-    const picks = state.found.filter(f => f.sel && f.key && f.sale).sort((a, b) => b.sale - a.sale);
-    picks.forEach(f => { addAdItem(f.key, f.sale, f.regular); f.sel = false; f.added = true; });
+  const d = t.dataset;
+  if (d.step) {
+    const lim = { people: [1, 12], dinners: [1, 7] }[d.step];
+    const v = Math.min(lim[1], Math.max(lim[0], state.settings[d.step] + parseInt(d.d, 10)));
+    $(`#${d.step}Out`).textContent = v;
+    return setSetting(d.step, v, replan);
+  }
+  if (d.diet) {
+    const s = state.settings;
+    s.diets = s.diets.includes(d.diet) ? s.diets.filter(x => x !== d.diet) : [...s.diets, d.diet];
+    t.setAttribute('aria-pressed', s.diets.includes(d.diet));
+    return replan();
+  }
+  if (d.pref) {
+    state.settings.pref = d.pref;
+    state.brand = {};
+    document.querySelectorAll('[data-pref]').forEach(b => b.setAttribute('aria-pressed', b.dataset.pref === d.pref));
     save();
-    $('#readFlash').textContent = `Added ${picks.length} item${picks.length === 1 ? '' : 's'} to this week's sale list.`;
-    renderHeader(); renderAd();
+    return renderList();
+  }
+  if (d.open) { state.open[d.open] = !state.open[d.open]; save(); return renderDinners(); }
+  if (d.swap) return swap(d.swap);
+  if (d.brand) { const [k, b] = d.brand.split(':'); state.brand[k] = b; save(); return renderList(); }
+  if (d.check) { state.checked[d.check] = t.checked; save(); t.closest('li').classList.toggle('done', t.checked); return; }
+  if (t.id === 'replanBtn') return replan();
+  if (t.id === 'photoBtn') return $('#adPhotos').click();
+  if (t.id === 'reloadBtn') { state.adSource = null; return loadAd(); }
+  if (t.id === 'shareBtn') {
+    const text = listText();
+    const flash = $('#shareFlash');
+    const copy = () => navigator.clipboard
+      ? navigator.clipboard.writeText(text).then(() => { flash.textContent = 'Copied the list.'; }, () => { flash.textContent = "Couldn't copy on this device."; })
+      : null;
+    if (navigator.share) return navigator.share({ title: 'Grocery list', text }).catch(err => { if (err.name !== 'AbortError') copy(); });
+    copy();
   }
 });
 
-$('#code').addEventListener('input', e => setSetting('code', e.target.value.trim()));
-if (/^\d{5}$/.test(state.settings.zip) && (!state.flyers || state.flyers.zip !== state.settings.zip || Date.now() - state.flyers.at > 6 * 3600e3)) loadStores();
-
+renderSetup();
+if (!state.plan.length) state.plan = autoPlan();
 render();
+const stale = !state.flyers || state.flyers.zip !== state.settings.zip || Date.now() - state.flyers.at > 6 * 3600e3;
+if (/^\d{5}$/.test(state.settings.zip)) { if (stale) loadStores(); else loadAd(); }
 </script>
 </body>
 </html>
