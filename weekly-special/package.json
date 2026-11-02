@@ -1,0 +1,16 @@
+{
+  "name": "weekly-special",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev",
+    "deploy": "wrangler pages deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.3.0",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "wrangler": "4.45.0"
+  }
+}
