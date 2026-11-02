@@ -750,7 +750,40 @@ R('peanut_noodles', 'Peanut Noodles with Crunchy Veggies', 20, 0,
    'Toss the noodles with the sauce, vegetables, green onions and a pinch of pepper flakes.']);
 
 // A published version of each dish, for the full write-up and photos.
-const SOURCES = /*SOURCES*/{};
+const SOURCES = {
+  sheet_chicken: { site: "Taste of Home", url: "https://www.tasteofhome.com/recipes/sheet-pan-lemon-garlic-chicken/" },
+  chicken_stirfry: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/chicken-and-broccoli-stir-fry/" },
+  fajitas: { site: "Budget Bytes", url: "https://www.budgetbytes.com/stovetop-chicken-fajitas/" },
+  tortilla_soup: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/chicken-tortilla-soup/" },
+  salmon: { site: "RecipeTin Eats", url: "https://www.recipetineats.com/lemon-garlic-salmon-tray-bake-easy-healthy/" },
+  shrimp_tacos: { site: "Budget Bytes", url: "https://www.budgetbytes.com/blackened-shrimp-tacos/" },
+  shrimp_pasta: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/garlic-shrimp-pasta/" },
+  beef_tacos: { site: "Taste of Home", url: "https://www.tasteofhome.com/recipes/tasty-tacos/" },
+  spaghetti: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/easy-meat-sauce/" },
+  burgers: { site: "The Kitchn", url: "https://www.thekitchn.com/how-to-make-burgers-on-the-stovetop-cooking-lessons-from-the-kitchn-217722" },
+  beef_stew: { site: "Once Upon a Chef", url: "https://www.onceuponachef.com/recipes/beef-stew-with-carrots-potatoes.html" },
+  stuffed_peppers: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/ground-turkey-stuffed-peppers/" },
+  turkey_chili: { site: "Taste of Home", url: "https://www.tasteofhome.com/recipes/turkey-chili/" },
+  pork_apples: { site: "Budget Bytes", url: "https://www.budgetbytes.com/apple-spice-pork-chops/" },
+  sausage_skillet: { site: "Taste of Home", url: "https://www.tasteofhome.com/recipes/potato-kielbasa-skillet/" },
+  carnitas: { site: "The Kitchn", url: "https://www.thekitchn.com/recipe-slow-cooker-pork-carnitas-121376" },
+  bacon_frittata: { site: "The Kitchn", url: "https://www.thekitchn.com/potato-frittata-recipe-23218306" },
+  veggie_frittata: { site: "Cookie and Kate", url: "https://cookieandkate.com/best-frittata-recipe/" },
+  sweet_potato_tacos: { site: "Cookie and Kate", url: "https://cookieandkate.com/sweet-potato-black-bean-tacos/" },
+  chickpea_curry: { site: "Love and Lemons", url: "https://www.loveandlemons.com/chickpea-curry/" },
+  lentil_soup: { site: "Love and Lemons", url: "https://www.loveandlemons.com/lentil-soup/" },
+  fried_rice: { site: "Budget Bytes", url: "https://www.budgetbytes.com/vegetable-fried-rice/" },
+  primavera: { site: "Budget Bytes", url: "https://www.budgetbytes.com/pasta-primavera/" },
+  baked_ziti: { site: "The Kitchn", url: "https://www.thekitchn.com/how-to-make-an-all-star-baked-ziti-231963" },
+  pizza: { site: "Love and Lemons", url: "https://www.loveandlemons.com/sheet-pan-pizza/" },
+  tofu_stirfry: { site: "Minimalist Baker", url: "https://minimalistbaker.com/tofu-that-tastes-good-stir-fry/" },
+  caesar_wraps: { site: "Taste of Home", url: "https://www.tasteofhome.com/recipes/chicken-caesar-wraps/" },
+  bbq_chicken: { site: "Budget Bytes", url: "https://www.budgetbytes.com/easy-bbq-chicken-sandwiches/" },
+  greek_bowls: { site: "Spend With Pennies", url: "https://www.spendwithpennies.com/greek-chicken-bowls/" },
+  loaded_potatoes: { site: "Budget Bytes", url: "https://www.budgetbytes.com/broccoli-cheddar-baked-potatoes/" },
+  steak_dinner: { site: "Once Upon a Chef", url: "https://www.onceuponachef.com/recipes/how-to-cook-steak-on-the-stovetop.html" },
+  peanut_noodles: { site: "Love and Lemons", url: "https://www.loveandlemons.com/peanut-noodles/" },
+};
 
 const RECIPE_BY_ID = Object.fromEntries(RECIPES.map(r => [r.id, r]));
 
