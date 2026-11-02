@@ -205,6 +205,7 @@ details > summary { cursor: pointer; font-family: var(--sans); font-weight: 600;
 .recipe { display: flex; flex-direction: column; margin: 0; }
 .recipe .meta { font-family: var(--sans); font-size: 13px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
 .recipe .uses { font-size: 15px; margin: 0 0 10px; }
+.recipe .src { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--accent); margin: -4px 0 10px; display: inline-block; }
 .recipe .foot { margin-top: auto; display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 8px; border-top: 1px dotted var(--rule); }
 .recipe .body { border-top: 1px dotted var(--rule); margin-top: 10px; padding-top: 10px; font-size: 15px; }
 .recipe .body ul, .recipe .body ol { padding-left: 20px; margin: 6px 0 12px; }
@@ -748,6 +749,9 @@ R('peanut_noodles', 'Peanut Noodles with Crunchy Veggies', 20, 0,
    'Cut the cucumber and carrots into matchsticks.',
    'Toss the noodles with the sauce, vegetables, green onions and a pinch of pepper flakes.']);
 
+// A published version of each dish, for the full write-up and photos.
+const SOURCES = /*SOURCES*/{};
+
 const RECIPE_BY_ID = Object.fromEntries(RECIPES.map(r => [r.id, r]));
 
 const STORES = {
@@ -1046,6 +1050,7 @@ function recipeCard(e) {
     <h3>${esc(r.name)}</h3>
     <div class="meta"><span>⏱ ${time}</span><span>≈ ${money(e.perServing)}/serving</span></div>
     ${uses}
+    ${SOURCES[r.id] ? `<a class="src" href="${esc(SOURCES[r.id].url)}" target="_blank" rel="noopener">Full recipe at ${esc(SOURCES[r.id].site)} ↗</a>` : ''}
     ${body}
     <div class="foot">
       ${e.saleSave >= 0.5 ? `<span class="pill">Saves ${money(e.saleSave)}</span>` : '<span></span>'}
@@ -1176,6 +1181,7 @@ function renderPrintColumn() {
         <div class="small"><em>${e.r.time} minutes${e.saleItems.length ? ' · On sale: ' + e.saleItems.map(k => esc(CATALOG[k].n)).join(', ') : ''}</em></div>
         <ul>${e.ings.map(i => `<li>${esc(amount(i.key, i.qty))}${i.sale ? ` (sale ${money(ad[i.key].sale)})` : ''}</li>`).join('')}</ul>
         <ol>${e.r.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
+        ${SOURCES[e.r.id] ? `<div class="small">Full recipe: ${esc(SOURCES[e.r.id].url)}</div>` : ''}
       </div>`).join('')}
       <div class="pc-recipe"><h3>Shopping list</h3><ul>${L.items.map(i => `<li>${esc(i.it.u === 'each' ? fq(i.buy) + ' ×' : fq(i.buy) + ' ' + unitWord(i.it.u, i.buy))} ${esc(i.it.n)}: ${money(i.cost)}</li>`).join('')}</ul></div>
     </div>`;
