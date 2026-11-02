@@ -974,7 +974,7 @@ function renderAd() {
   $('#readTitle').textContent = flyers.length ? 'Or read screenshots' : 'Read the ad for me';
   $('#autoTitle').textContent = `This week's ${s.store} ad`;
   $('#flyerList').innerHTML = flyers.map(f => `<li>
-      <div><div class="name">${esc(f.name)}</div><div class="small sans muted">Through ${esc(shortDate(f.validTo))}</div></div>
+      <div><div class="name">${esc(f.name)}</div><div class="small sans muted">Through ${esc(shortDate(f.validTo))}${f.source ? ` · <a href="${esc(f.source)}" target="_blank" rel="noopener">list from Living Rich With Coupons</a>` : ''}</div></div>
       <span></span>
       <button class="btn sm ${state.loaded[f.id] ? 'added' : ''}" data-flyer="${f.id}">${state.loaded[f.id] ? 'Loaded ✓' : 'Load'}</button>
     </li>`).join('');
@@ -1387,7 +1387,7 @@ function renderStoreSelect() {
   $('#storeNote').textContent = !/^\d{5}$/.test(s.zip)
     ? 'Enter your ZIP code to see which nearby stores have their weekly ad loaded automatically.'
     : auto.length
-      ? `${auto.length} stores near ${s.zip} have their weekly ad loaded automatically. For other stores, like ShopRite, you add screenshots of the ad.`
+      ? `${auto.length} stores near ${s.zip} have their weekly ad loaded automatically. For other stores, you add screenshots of the ad.`
       : 'Looking up stores near you...';
 }
 

@@ -6,9 +6,11 @@ Turns a grocery store's weekly sale ad into a week of dinners, a shopping list a
 - `functions/api/` are Cloudflare Pages Functions:
   - `stores` lists grocery circulars near a ZIP code, from Flipp.
   - `ad` loads one circular from Flipp and has Claude match its items to recipe ingredients.
-  - `read-ad` reads uploaded ad screenshots (or pasted ad text) with Claude, for stores Flipp doesn't carry, like ShopRite.
+  - `read-ad` reads uploaded ad screenshots (or pasted ad text) with Claude, for stores neither source carries.
 
-Flipp has no documented public API. If it changes, the automatic ads stop loading and the screenshot option still works.
+ShopRite isn't on Flipp, and shoprite.com blocks automated visits. Its ad comes from the weekly "ShopRite Coupon Deals – Week of …" post on Living Rich With Coupons, read through that blog's public WordPress API (`functions/_lib/lrwc.js`). The site links back to the post.
+
+Neither Flipp nor the blog is an official API. If either changes, that store's ad stops loading and the screenshot option still works.
 
 ## Deploy on Cloudflare Pages
 
