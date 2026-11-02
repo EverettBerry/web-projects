@@ -1524,7 +1524,7 @@ $('#adPhotos').addEventListener('change', e => {
 $('#readTextBtn').addEventListener('click', () => {
   const text = $('#adRaw').value.trim();
   if (!text) { $('#readFlash').textContent = "Paste the ad's text in the box first."; return; }
-  readAd(null, text);
+  readAd([], text);
 });
 $('#stopReadBtn').addEventListener('click', () => readCtl && readCtl.abort());
 $('#foundBox').addEventListener('change', e => {
